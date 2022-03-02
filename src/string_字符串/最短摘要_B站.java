@@ -1,5 +1,6 @@
 package string_字符串;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,18 +19,24 @@ import java.util.Map;
 public class 最短摘要_B站 {
 
     public static void main(String[] args) {
+        System.out.println("sovle1:");
         solve1(new String[]{"a", "b", "c", "seed", "h", "e", "f", "c", "c", "seed", "e", "f", "seed", "c"}, new String[]{"c", "e"});
+        solve1(new String[]{"a", "b", "c", "seed", "h", "e", "f", "c", "c", "seed", "e", "f", "seed", "c"}, new String[]{"h"});
+        System.out.println("solve2:");
+        solve2(new String[]{"a", "b", "c", "seed", "h", "e", "f", "c", "c", "seed", "e", "f", "seed", "c"}, new String[]{"c", "e"});
+        solve2(new String[]{"a", "b", "c", "seed", "h", "e", "f", "c", "c", "seed", "e", "f", "seed", "c"}, new String[]{"h"});
     }
+
     /*暴力揭发解法*/
     static void solve1(String[] s1, String[] s2){
         int res_l=Integer.MAX_VALUE;
         int left=-1;
         int right=-1;
         for (int i = 0; i < s1.length; i++) {
-            for (int j = i+1; j < s1.length; j++) {
+            for (int j = i; j < s1.length; j++) {
                 if (containAll(s2,s1,i,j)){
-                    if (j-i<res_l){
-                        res_l=j-i;
+                    if (j-i+1<res_l){
+                        res_l=j-i+1;
                         left=i;
                         right=j;
                     }
@@ -40,8 +47,66 @@ public class 最短摘要_B站 {
     }
 
     /*尺取法*/
-    static void solve2(String[] s1, String[] s2){
+    /*尺取法的简单过程就是首->尾->首->尾......一直在交替;
+    * 一般应用在找数组/字符串的最短区间上;
+    * 原理步骤:
+    *   1.先找到符合要求服首部;
+    *   2.若是在首部check就符合(判断是否全部符合匹配要求),则比较历史最短并决策(更新/continue);
+    *   3.若是2不符合,再不断后移尾部,然后 check,比较历史最短并决策(更新/break);
+    *   4.重复1,2,3步骤,移动首部,调整尾部;
+    *   5.若是如果尾部已经到头了,则只重复2,check直到结束;
+    * 注释: 若尾部已经到头了,首部还要继续向后移动--可能会产生更短的摘要,且尾部移动不了也判断不了了,只能在首部也放置check判断*/
+    static void solve2(String[] s1, String[] keywords){
+        int minLen=Integer.MAX_VALUE;
+        int begin=-1;
+        int end=-1;
 
+        int j=0; //上一个摘要的结尾,初始化为0
+
+        for (int i = 0; i < s1.length; i++) {
+            String word1=s1[i];
+            int index= Arrays.binarySearch(keywords,word1);
+            if (index<0){ //首部不符合,直接下一个
+                continue;
+            }
+            else if (i>=j&&containAll(keywords,s1,i,j)){
+                if (j-i +1<minLen){ //算长度不要忘记 =1;
+                    minLen=j-i+1;
+                    begin=i;
+                    end=j;
+                }
+                else
+                    continue;
+            }
+            //尾部
+            if(j==0){ //若是找到第一个符合的首部,则尾部j下移到他的位置,方便继续往后移
+                j=i;
+            }
+            l1:
+            while(j<s1.length){ //不断调整尾部直至符合匹配
+                String word2=s1[j];
+                int index2=Arrays.binarySearch(keywords,word2);
+                if (index2<0){ //尾部在调整,若是连尾部的字符串都不包括在keywords里,直接continue,不用麻烦containAll
+                    j++;
+                    continue l1;
+                }
+                else if (containAll(keywords,s1,i,j)){
+                    if (j-i+1<minLen){
+                        minLen=j-i+1;
+                        begin=i;
+                        end=j;
+                    }
+                    else
+                        break;
+                }
+                else
+                {
+                    j++;
+                    continue;
+                }
+            }
+        }
+        print(s1,begin,end);
     }
 
     static void print(String[] str, int begin, int end){
