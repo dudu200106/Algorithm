@@ -45,11 +45,11 @@ public class RabinKarp {
     }
 
     static void match2(String s, String p){
-        long[] hashOfS=hash(s,p.length());
-        System.out.println("Hash value of pattern string： " +hashOfS);
+        long[] hashArr=hash(s,p.length());
+        System.out.println("Hash value of pattern string： " +hashArr);
         long hashOfP=hash(p);
-        for (int i = 0; i < hashOfS.length; i++) {
-            if (hashOfS[i]==hashOfP){
+        for (int i = 0; i < hashArr.length; i++) {
+            if (hashArr[i]==hashOfP){
                 System.out.println("match:" + i);
             }
         }
@@ -86,7 +86,7 @@ public class RabinKarp {
             char newCh =s.charAt(i);
             char oldCh =s.charAt(i-n);
             long val=(res[i-n]*Seed+newCh) - ex2(Seed,n)*oldCh;
-            res[i-n+1]=val;
+            res[i-n+1]=val % Long.MAX_VALUE;
         }
         return res;
     }
