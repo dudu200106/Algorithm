@@ -46,7 +46,7 @@ public class RabinKarp {
 
     static void match2(String s, String p){
         long[] hashOfS=hash(s,p.length());
-        System.out.println(hashOfS);
+        System.out.println("Hash value of pattern string： " +hashOfS);
         long hashOfP=hash(p);
         for (int i = 0; i < hashOfS.length; i++) {
             if (hashOfS[i]==hashOfP){
@@ -56,8 +56,9 @@ public class RabinKarp {
     }
 
     final static int Seed=31; //使用一个质数作为计算哈希值的种子
-    /** 滚动哈希数组
+    /**
      * 用以和母串比较哈希值, 哈希值相同就说明:以s[i]开头的母串子串匹配p成功
+     * 但复杂度没有降低,仍然是O(m*n)
      * @param str
      * @return 长度为n的p字符串哈希值
      */
@@ -71,7 +72,8 @@ public class RabinKarp {
 
     /**
      * 滚动哈希数组
-     *      --相当于预处理简化问题,只需比较各个子串的哈希值就行了
+     *      --相当于预处理简化问题,只需比较各个子串的哈希值就行了;
+     *      使用滚动哈希,就不用每次计算子串的时候,要从头开始计算N次,直接
      * 以每个母串字符为首部,长度为n(P的长度)的字符串哈希值数组
      * @return 每个长度为n的字符串的哈希数组
      * 注: 可能会存在哈希冲突, 但是可能性极小,竞赛几乎不会遇到
