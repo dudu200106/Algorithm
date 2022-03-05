@@ -1,5 +1,7 @@
 package math_数学;
 
+import java.util.ArrayList;
+
 /**
  * 要求用3的指数幂(1,3,9,27...),分别放在天平的左右两边,左盘加右盘减, 表示出用户给出的重量, 且不能重复使用
  * 如:
@@ -15,23 +17,39 @@ package math_数学;
 public class 天平称重_三进制 {
 
     public static void main(String[] args) {
+        solve(1000);
     }
 
     public static void solve(int num){
-        StringBuilder sb=transf(num);
-        int i=sb.length()-1;
-        while (i<=0){
-
+        StringBuilder temp=new StringBuilder();
+        temp.append(Integer.toString(num,3)); //Integer.toString(N,几进制)
+        char[] arr=temp.toString().toCharArray();
+        ArrayList<Integer> list=new ArrayList<>();
+        for (int j = arr.length-1; j >=0 ; j--) {
+            if (arr[j]=='2'){ //"逢2进1,原位为-1"
+                list.add(0,-1);//在链表头部插入,再看情况是否进位
+                if (j==0){ //数值进制到头,直接插入以
+                    list.add(0,1);
+                } else
+                    arr[j-1]++; //进位
+            }
+            else if (arr[j]=='3'){ //"逢3进1,原位为0"
+                list.add(0,0);
+                if (j==0){
+                    list.add(0,1);
+                } else {
+                    arr[j-1]++;
+                }
+            }
+            else list.add(0,arr[j]-'0');
         }
-    }
-
-    static StringBuilder transf(int num){
+        System.out.println(list);
         StringBuilder sb=new StringBuilder();
-        while (num>0){
-            int temp=num%3;
-            sb.append(temp);
-            num/=3;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i)==1) sb.append('+').append((int)Math.pow(3,list.size()-i-1));
+            if (list.get(i)==-1) sb.append('-').append((int)Math.pow(3,list.size()-i-1));
         }
-        return sb.reverse();
+        System.out.println(sb.substring(1));
     }
+
 }
