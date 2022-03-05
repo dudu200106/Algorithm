@@ -33,6 +33,7 @@ public class KMP {
     }
 
     static int indexOf2(String str, String p){
+
         if (str.length()==0||p.length()==0)return -1;
         if (p.length()>str.length())return -1;
         int[] next= next(p); //next[j]代表了若是j失配, j将跳回到哪个位置
