@@ -1,37 +1,21 @@
 package string_字符串.省题;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class 人物相关性分析_字符串匹配_省题 {
-    //RabinKarp
-    final static int seed=31;
+public class 人物相关性分析2_sunday {
     public static void main(String[] args) {
         String str="This is a story about Alice and Bob. Alice wants to send a private message to Bob.";
 //        String str="This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob.";
-        int n=200;
+        int n=20;
         String a="Alice";
         String b="Bob";
-        long h_a=hash(a);
-        long h_b=hash(b);
-        long[] help1=hash(str,5);
-        long[] help2=hash(str,3);
 
-        ArrayList<Integer> Alice=new ArrayList<>();
-        ArrayList<Integer> Bob=new ArrayList<>();
-
-        for (int i = 0; i < help1.length; i++) {
-            if (h_a == help1[i] && check(str,i,i+4)) {
-                    Alice.add(i);
-            }
-        }
-        for (int i = 0; i < help2.length; i++) {
-            if (h_b == help2[i] && check(str,i,i+2)) {
-                    Bob.add(i);
-            }
-        }
-
-        System.out.println(Bob);
+        List<Integer> Alice= match_sun(str,a);
+        List<Integer> Bob= match_sun(str,b);
         System.out.println(Alice);
+        System.out.println(Bob);
 
         //两两距离组合相减, 判断之间的距离是否小于n
         int ans = 0;
@@ -45,25 +29,37 @@ public class 人物相关性分析_字符串匹配_省题 {
         System.out.println(ans);
     }
 
-    public static long hash(String str){ //普通
-        long res=0;
-        for (int j = 0; j < str.length(); j++) {
-            char c=str.charAt(j);
-            res=res*seed+c;
-        }
-        return res%Long.MAX_VALUE;
-    }
+    static ArrayList<Integer> match_sun(String s, String p) {
+        int lenS = s.length();
+        int lenP = p.length();
+        ArrayList<Integer> ans =new ArrayList<Integer>();
 
-    public static long[] hash(String str, int k){
-        long[] hashArr=new long[str.length()]; //滚动哈希数组
-        hashArr[0]=hash(str.substring(0,k));
-        for (int i = k; i <str.length(); i++) {
-            char newch=str.charAt(i);
-            char oldch=str.charAt(i-k);
-            long val=hashArr[i-k]*seed+newch - oldch*(long)Math.pow(seed,k);
-            hashArr[i-k+1]= val%Long.MAX_VALUE;
+        if (lenP > lenS) return new ArrayList<>();
+        if (lenP == 0) return new ArrayList<>();
+
+        //1. 生成一个模式串的偏移表--shift[MAX_ACCSI], 代表若下一个字符是i的偏移量
+        int[] shift = new int[256]; //扩展ASSCI码的长度
+        Arrays.fill(shift,lenP+1);
+
+        for (int i = 0; i < lenP; i++) {
+            shift[p.charAt(i)] = lenP - i;
         }
-        return hashArr;
+
+        int sc = 0; //s开始的下标
+        while (sc <= lenS - lenP) {
+            int j=0; //p的下标
+            while(s.charAt(sc+j)==p.charAt(j)){
+                j++;
+                if (j>=lenP ) {
+                    if (check(s,sc,sc+lenP-1)) {
+                        ans.add(sc);
+                    }
+                    break;
+                }
+            }
+            sc+=shift[s.charAt(sc+lenP)];
+        }
+        return ans;
     }
 
     static boolean check(String str, int b, int e){
