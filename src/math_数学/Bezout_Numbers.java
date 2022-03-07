@@ -27,7 +27,7 @@ public class Bezout_Numbers {
      * 定义了两个变量x,y分别代表使贝祖等式成立时的贝祖数
      * 裴蜀定理: ax + by = m (m为gcd(a,b)的倍数)
      * 实际运用: 得知了a,b的gcd, 可以由a,b配出任何gcd的倍数--若gcd(a,b)=1, 可以组合处任何数
-     * 扩展欧几里得在这里的任务: 计算出使ax + by = gcd 成立的x和y -- 若是不成立
+     * 扩展欧几里得在这里的任务: 计算出使ax + by = gcd 成立的基本贝祖数, 把他们放在静态变量x,y里
      * @param a
      * @param b
      * @return gcd 最小大公约数:greatest common divisor
@@ -38,8 +38,9 @@ public class Bezout_Numbers {
             y =0;
             return a;
         }
-
+        //入栈
         long gcd=egcb(b,a%b);
+        //出栈,静态变量x和y已近改变成bx'+(a%b)y'=gcd 的解
         long x1=x;
         x=y;
         y=x1-(a/b)*y;
