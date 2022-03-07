@@ -8,7 +8,7 @@ public class 人物相关性分析_字符串匹配_省题 {
     public static void main(String[] args) {
         String str="This is a story about Alice and Bob. Alice wants to send a private message to Bob.";
 //        String str="This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob. This is a story about Alice and Bob. Alice wants to send a private message to Bob.";
-        int n=20;
+        int n=200;
         String a="Alice";
         String b="Bob";
         long h_a=hash(a);
@@ -33,13 +33,12 @@ public class 人物相关性分析_字符串匹配_省题 {
         System.out.println(Bob);
         System.out.println(Alice);
 
+        //两两距离组合相减, 判断之间的距离是否小于n
         int ans = 0;
         for (int i = 0; i < Alice.size(); i++) {
             for (int j = 0; j < Bob.size(); j++) {
                 int dist=Alice.get(i)-Bob.get(j);
-                if(dist<n&&dist>0)
-                    ans++;
-                else if (dist>-n&&dist<0)
+                if((dist<n && dist>0) || (-dist<n&&dist<0)) //距离的绝对数
                     ans++;
             }
         }
