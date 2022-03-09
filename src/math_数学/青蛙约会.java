@@ -1,5 +1,7 @@
 package math_数学;
 
+import java.util.Scanner;
+
 /**
  * Description
  * 两只青蛙在网上相识了，它们聊得很开心，于是觉得很有必要见一面。
@@ -34,22 +36,43 @@ package math_数学;
  */
 public class 青蛙约会 {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long x = sc.nextLong();//坐标
+        long y = sc.nextLong();//坐标
+        long m = sc.nextLong();//A一次跳
+        long n = sc.nextLong();//B一次跳
+        long L = sc.nextLong();//维度总线
 
+        long a = m - n;
+        long b = L;
+        m = y - x;
+        long d = 0;
+        try {
+            d =  Egcd.linearEquation(a, b, m);//求解线性方程
+            long x0 = Egcd.x;//可能小于0
+            b /= d;//约一下
+            b = Math.abs(b);
+            /*============这里是AC的关键==============*/
+            x0 = (x0 % b + b) % b;//要求大于0的第一个解
+            System.out.println(x0);
+        } catch (Exception e) {
+            System.out.println("Impossible");
+        }
     }
 
 
     private static class Egcd{
-        static int  x,y; //静态全局变量, 防止使得贝祖等式处理的数
+        static long  x,y; //静态全局变量, 防止使得贝祖等式处理的数
 
-        static int egcd(int a,int b){
+        static long egcd(long a,long b){
             if (b==0){ //递归跳出方法
                 x=1;
                 y=0;
                 return a;
             }
 
-            int d=egcd(b,a%b);
-            int x1=x;
+            long d=egcd(b,a%b);
+            long x1=x;
             x=y;
             y=x1-(a/b)*y;
             return d;
@@ -63,11 +86,11 @@ public class 青蛙约会 {
          * @return gcd(a.b)
          * @throws Exception
          */
-        static int linearEquation(int a,int b,int m) throws Exception{
-            int d=egcd(a,b);
+        static long linearEquation(long a,long b,long m) throws Exception{
+            long d=egcd(a,b);
             if (m%d!=0)//判断m是否为gcd(a,b)的倍数
                 throw new Exception("等式不成立");
-            int n=m/d;
+            long n=m/d;
             x*=n;
             y*=n;
             return d;
