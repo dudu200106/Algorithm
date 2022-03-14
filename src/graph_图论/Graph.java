@@ -1,4 +1,4 @@
-package graph;
+package graph_图论;
 
 public class Graph {
     public static void main(String[] args) {

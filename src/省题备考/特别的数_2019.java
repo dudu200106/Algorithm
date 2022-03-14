@@ -1,8 +1,8 @@
-package enumrate_枚举;
+package 省题备考;
 
 import java.util.Scanner;
 
-public class Sum2019 {
+public class 特别的数_2019 {
     public static void main(String[] args) {
         int res=0;
         Scanner in = new Scanner(System.in);
