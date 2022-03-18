@@ -1,6 +1,7 @@
 package 省题备考;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -18,13 +19,13 @@ import java.util.Scanner;
  * 输出一个整数代表答案。
  *
  * 【样例输入】
- * 2 6 6
- * 1 1
- * 5 2
- * 3 1
- * 6 2
- * 2 1
- * 6 2
+ 2 6 6
+ 1 1
+ 5 2
+ 3 1
+ 6 2
+ 2 1
+ 6 2
  *
  * 【样例输出】
  * 1
@@ -41,39 +42,55 @@ import java.util.Scanner;
  *
  *
  */
-public class 外卖店优先级_2019 {
+
+public class 外卖优先级2 {
 
     public static void main(String[] args) {
         Scanner in=new Scanner(System.in);
         int N =in.nextInt();
         int M =in.nextInt();
         int T = in.nextInt();
-        int[][] arr=new int[T+1][N+1]; //行下标代表时间, 每列代表一个店铺
-        for (int i = 0; i <M ; i++) {
+        Pair[] arr=new Pair[M+1]; //行下标代表时间, 每列代表一个店铺
+
+        new Pair(1,1);
+        /*for (int i = 1; i <M+1 ; i++) {
             int ti= in.nextInt();
-            int id=in.nextInt();
-            arr[ti][id]++;
+            int id= in.nextInt();
+            arr[i]=new Pair(ti,id);
         }
 
-        int[] res=new int[N+1]; //店铺优先值
+        for (int i = 0; i < M+1; i++) {
+            System.out.println(arr[i].ti+ "::" +arr[i].id);
+        }*/
 
-        for (int i = 1; i < arr.length; i++) {
-            for (int j = 1; j < arr[1].length; j++) {
-                int val = arr[i][j];
-                if (val > 0) {
-                    res[j] += val * 2;
-                } else if (res[j] > 0) {
-                    res[j]--;
-                }
+        Arrays.sort(arr, new Comparator<Pair>() {
+            @Override
+            public int compare(Pair o1, Pair o2) {
+                return 0;
             }
-        }
+        });
 
-        int cnt=0;
-        for (int i = 1; i < res.length; i++) {
-            if(res[i]>=6)
-                cnt++;
-        }
-
-        System.out.println(cnt);
     }
+
+     class Pair implements Comparator<Pair>{
+        int ti;
+        int id;
+
+        Pair(int ti,int id) {
+            this.ti = ti;
+            this.id = id;
+        }
+
+        public void print(){
+            System.out.println("ti: "+ti+ " id: "+id);
+        }
+
+         @Override
+         public int compare(Pair o1, Pair o2) {
+             return o1.ti-o2.ti;
+         }
+     }
+
 }
+
+
