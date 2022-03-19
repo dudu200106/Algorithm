@@ -40,7 +40,7 @@ import java.util.Scanner;
  *
  *
  */
-public class 外卖店优先级_2019 {
+public class 外卖店优先级1_2019 {
 
     public static void main(String[] args) {
         Scanner in=new Scanner(System.in);
