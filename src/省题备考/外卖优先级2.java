@@ -1,5 +1,6 @@
 package 省题备考;
 
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -44,51 +45,76 @@ import java.util.Scanner;
  */
 
 public class 外卖优先级2 {
-
+    static Pair[] arr;
     public static void main(String[] args) {
-        Scanner in=new Scanner(System.in);
-        int N =in.nextInt();
-        int M =in.nextInt();
-        int T = in.nextInt();
-        Pair[] arr=new Pair[M+1]; //行下标代表时间, 每列代表一个店铺
+        Scanner input=new Scanner(System.in);
+        int N =input.nextInt();
+        int M =input.nextInt();
+        int T = input.nextInt();
+        arr=new Pair[M];
 
-        new Pair(1,1);
-        /*for (int i = 1; i <M+1 ; i++) {
-            int ti= in.nextInt();
-            int id= in.nextInt();
-            arr[i]=new Pair(ti,id);
+        for (int i = 0; i < arr.length; i++) {
+            int t=input.nextInt();
+            int d=input.nextInt();
+            arr[i]=new Pair(t,d);
         }
-
-        for (int i = 0; i < M+1; i++) {
-            System.out.println(arr[i].ti+ "::" +arr[i].id);
-        }*/
 
         Arrays.sort(arr, new Comparator<Pair>() {
             @Override
             public int compare(Pair o1, Pair o2) {
-                return 0;
+                return o1.id-o2.id;
             }
         });
 
+        int res=0;
+        for (int i = 0; i < M; i++) {
+            int[] time = new int[T + 1];
+            if (i==M-1){
+                time[arr[i].ti]++;
+                res+=amount(time)?1:0;
+                break;
+            }
+            else if (arr[i].id==arr[i+1].id) {
+                time[arr[i].ti]++;
+                continue;
+            }
+            else { //结算
+                time[arr[i].ti]++;
+                res+=amount(time)?1:0;
+                continue;
+            }
+        }
+        System.out.println(res);
     }
 
-     class Pair implements Comparator<Pair>{
-        int ti;
-        int id;
-
-        Pair(int ti,int id) {
-            this.ti = ti;
-            this.id = id;
+    private static boolean amount(int[] time) {
+        int cnt = 0;
+        boolean flag = true;
+        for (int j = 1; j <=time.length-2; j++) {
+            int val = time[j];
+            if (val > 0) {
+                cnt += val * 2;
+                if (cnt > 5)
+                    flag = true;
+            } else if (cnt > 0) {
+                cnt--;
+                if (cnt <= 3)
+                    flag = false;
+            }
         }
+        return flag;
+    }
 
-        public void print(){
-            System.out.println("ti: "+ti+ " id: "+id);
-        }
 
-         @Override
-         public int compare(Pair o1, Pair o2) {
-             return o1.ti-o2.ti;
+    static class Pair { //妈的!! 静态成员不能访问实例变量!!
+         int ti;
+         int id;
+
+         Pair(int ti, int id) {
+             this.ti = ti;
+             this.id = id;
          }
+
      }
 
 }

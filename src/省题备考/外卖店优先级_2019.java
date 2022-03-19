@@ -1,6 +1,5 @@
 package 省题备考;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -48,32 +47,34 @@ public class 外卖店优先级_2019 {
         int N =in.nextInt();
         int M =in.nextInt();
         int T = in.nextInt();
-        int[][] arr=new int[T+1][N+1]; //行下标代表时间, 每列代表一个店铺
-        for (int i = 0; i <M ; i++) {
-            int ti= in.nextInt();
-            int id=in.nextInt();
-            arr[ti][id]++;
+        int[][] arr=new int[N+1][T+1]; //行下标代表时间, 每列代表一个店铺
+        for (int i = 1; i <=M ; i++) {
+            int ti=in.nextInt();
+            int id= in.nextInt();
+            arr[id][ti]++;
         }
 
-        int[] res=new int[N+1]; //店铺优先值
+        int res=0; //最后结果
 
+        int cnt=0;
+        boolean flag=true;
         for (int i = 1; i < arr.length; i++) {
             for (int j = 1; j < arr[1].length; j++) {
                 int val = arr[i][j];
                 if (val > 0) {
-                    res[j] += val * 2;
-                } else if (res[j] > 0) {
-                    res[j]--;
+                    cnt += val * 2;
+                    if (cnt>5)
+                        flag=true;
+                } else if (cnt > 0) {
+                    cnt--;
+                    if (cnt<=3)
+                        flag=false;
                 }
             }
+            if(flag)
+                res++;
         }
 
-        int cnt=0;
-        for (int i = 1; i < res.length; i++) {
-            if(res[i]>=6)
-                cnt++;
-        }
-
-        System.out.println(cnt);
+        System.out.println(res);
     }
 }
