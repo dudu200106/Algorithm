@@ -5,6 +5,17 @@ import java.util.Arrays;
 /*暴力解法时间复杂度为一维数组的两倍:O(n^4),就不尝试了*/
 public class 子矩阵最大累加和_B站 {
     /*借助上一题的findByDp方法, 竖向相加压缩每个子矩阵为"一维数组",遍历,>O(n^3)*/
+
+    /*
+    *  模板:
+    *   int[] temp;--矩阵列数
+    *   for 压缩起始行 from 0 to arr.length-1
+    *       for 向下压缩行数 from 压缩起始行 to arr.length-1
+    *           计算压缩后的一位数组最大累加和
+    *           与历史最大比较
+    *   结束
+    *
+    * */
     public static int findMaxSum(int[][] arr){
         int[] temp=new int[arr[0].length];
         int max=-100001;

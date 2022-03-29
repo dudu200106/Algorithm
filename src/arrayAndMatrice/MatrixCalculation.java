@@ -6,11 +6,12 @@ package arrayAndMatrice;
  */
 public class MatrixCalculation {
     static long[][] matrixAdd(int[][] m1, int[][] m2){
-        int m=m1.length,n=m1[0].length;
-        //矩阵相加必须是同形矩阵
+        int m=m1.length;
+        int n=m1[0].length;
+        //1.判断矩阵相加必须是同形矩阵
         if (m!=m2.length||n!=m2[0].length) throw new IllegalArgumentException();
+        //2.定义新矩阵,相加后返回结果
         long[][] res=new long[m][n];
-
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 res[i][j]=m1[i][j]+m2[i][j];
@@ -20,8 +21,9 @@ public class MatrixCalculation {
     }
 
     static long[][] matrixMultiply(int[][] m1, int[][] m2){
-        int m= m1.length,n1=m1[0].length;
-        //矩阵乘法满足条件: M x N 与 N x P, 第一个矩阵的列数n,等于第二个矩阵的行数n
+        int m= m1.length;
+        int n1=m1[0].length;
+        //1.判断矩阵乘法满足条件: M x N 与 N x P, 第一个矩阵的列数n,等于第二个矩阵的行数n
         if (n1!=m2.length) throw new IllegalArgumentException();
         int n= m2[0].length;
         long[][] res = new long[m][n];
