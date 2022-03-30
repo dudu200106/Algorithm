@@ -31,9 +31,6 @@ public class DFS_拆数字 {
     public static void main(String[] args) {
         int x=5;
         int t=0;
-        /*Scanner input = new Scanner(System.in);
-        System.out.println("Please Enter Two Number:");*/
-
         dfs(t,x);
     }
 }

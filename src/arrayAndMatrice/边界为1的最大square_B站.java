@@ -14,9 +14,9 @@ package arrayAndMatrice;
 public class 边界为1的最大square_B站 {
     public static void main(String[] args) {
         int[][] matric={{0,0,1,1,0},
-                        {0,1,1,0,0},
+                        {0,1,1,1,0},
                         {1,1,0,1,0},
-                        {1,0,1,1,0}};
+                        {1,1,1,1,0}};
         System.out.println(solve(matric));
     }
 
