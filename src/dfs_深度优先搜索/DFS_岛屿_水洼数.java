@@ -2,6 +2,22 @@ package dfs_深度优先搜索;
 
 public class DFS_岛屿_水洼数 {
 
+    /**
+     * 模板: (适用场景:允许更改原二维数组的八连/四连块)
+     * for 原数组
+     *      dfs() //遇到一个块就遍历,覆盖完整个块
+     *      count++; //覆盖完这个块后计数加一
+     *
+     *      dfs(int[][]arr, int row, int col)
+     *          1.退出条件
+     *          2.剪枝 + 处理操作 + 继续递归+ 回溯
+     *
+     *
+     * @param a
+     * @param i
+     * @param j
+     */
+
     public static void dfs01(int[][] a,int i,int j){
         /** 1.退出条件 */
         if (i<0||i>=a.length) return;

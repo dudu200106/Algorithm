@@ -22,10 +22,6 @@ public class 边界为1的最大square_B站 {
 
 
     /**
-     *
-     * @param arr
-     * @return
-     *
      * 模板:
      *      while from 5 to 0, 从大到小扫描是否能够构成一个方阵
      *          for i    //i, j代表每次尝试的起点, i,j<=arr.length-n
@@ -35,6 +31,9 @@ public class 边界为1的最大square_B站 {
      *                  while() X4 扫描四条边, 若是有0则跳 l4
      *                  ...
      *                  return n; //四条边都为1, 返回最大边长n
+     *
+     * @param arr
+     * @return
      */
 
     static int solve(int[][] arr){
