@@ -51,7 +51,9 @@ public class 子集_B站 {
     /*二进制法, ,用数的二进制每位代表数组中对应下标的元素,1是集合中存在,0是不存在*/
     static Set<Set<Integer>> getSubset(int[] arr,int length){
         Set<Set<Integer>> res=new HashSet<>();//初始化
+
         int num=(int)Math.pow(2,length);//二进制位组合个数
+
         for (int i = num; i >=0; i--) {
             Set<Integer> temp=new HashSet<>(); //每次创建一个空集合,放置
             for (int k=length-1;k>=0;k--){ //位移运算,从高位到低位检测每一位是否为1
