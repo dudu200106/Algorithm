@@ -31,8 +31,14 @@ public class 困难的串 {
      *              dfs(prefix + character)
      *              count++;
      *
-     *  isHardStr(String prefix, char i){
-     *
+     *  isHardStr(String prefix, char ch){
+     *      len; //截取长度
+     *      for index1 from pre.length to 0 -> index1-=2 //第一个子串的起始下标
+     *          s1 = prefix.substring(index1, index1 + len + 1)
+     *          s2 = prefix.substring(index1) + ch;
+     *          if(s1.equals(s2))
+     *              return false;
+     *      return true;
      *  }
      *
      * @param prefix
@@ -52,14 +58,15 @@ public class 困难的串 {
     }
 
     static boolean checkIsHard(String prefix, char ch){
-        int count = 0;//截取的宽度
+        int len = 0;//截取的宽度
         for (int j = prefix.length() - 1; j >= 0; j -= 2) {
-            final String s1 = prefix.substring(j, j + count + 1);
-            final String s2 = prefix.substring(j + count + 1) + ch;
+            final String s1 = prefix.substring(j, j + len + 1);
+            final String s2 = prefix.substring(j + len + 1) + ch;
             if (s1.equals(s2))
                 return false;
-            count++;
+            len++;
         }
         return true;
     }
+
 }
