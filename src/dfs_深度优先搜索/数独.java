@@ -70,9 +70,12 @@ public class 数独 {
 //        print(table);
         dfs(table, 0, 0);
     }
-
+    /**
+     * 模板:
+     *
+     * */
     private static void dfs(char[][] table, int x, int y) {
-        //退出
+        //退出--x超过最后一行
         if (x==9) {
             print(table);
             System.exit(0);
@@ -82,16 +85,16 @@ public class 数独 {
             for (int k = 1; k <=9 ; k++) {
                 if (check(table,x,y,k)) {
                     table[x][y] = (char)('0'+k);
-                    dfs(table, x + (y + 1) / 9, (y + 1) % 9);
+                    dfs(table, x + (y + 1) / 9, (y + 1) % 9);//实现在dfs遍历过程中, 二维数组的换行
                 }
             }
             table[x][y]='0'; //若是所有数字都不满足条件,回溯为零
         }
-        else{
+        else
             dfs(table,x + (y + 1) / 9, (y + 1) % 9);
-        }
 
     }
+
 
     private static boolean check(char[][] table, int i, int j, int k) {
         //检查同行和同列

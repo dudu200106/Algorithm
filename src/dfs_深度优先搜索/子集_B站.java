@@ -48,17 +48,29 @@ public class 子集_B站 {
         return new_set;
     }
 
+    /**
+     * 模板:
+     *  ArrayList<> res;
+     *  num = 2^arr.length;
+     *  for i from 0 to num
+     *      for k from 0 to arr.length-1 // 右移位数, 移到个位的那个是目标
+     *          if((i>>>k)&1==1)
+     *              temp.add(arr[k])
+     *  res.add(temp);
+     *
+     * */
     /*二进制法, ,用数的二进制每位代表数组中对应下标的元素,1是集合中存在,0是不存在*/
     static Set<Set<Integer>> getSubset(int[] arr,int length){
         Set<Set<Integer>> res=new HashSet<>();//初始化
-
-        int num=(int)Math.pow(2,length);//二进制位组合个数
-
+        /** step.1 计算0,1二进制位组合个数 */
+        int num=(int)Math.pow(2,length);
+        /** step.2 将所有组合的二进制转换为子集*/
         for (int i = num; i >=0; i--) {
             Set<Integer> temp=new HashSet<>(); //每次创建一个空集合,放置
             for (int k=length-1;k>=0;k--){ //位移运算,从高位到低位检测每一位是否为1
                 if(((i>>k)&1)==1) temp.add(arr[k]);
             }
+            /** step.3 遍历, 将所有的子集加入总集*/
             res.add(temp);
         }
         return res;
