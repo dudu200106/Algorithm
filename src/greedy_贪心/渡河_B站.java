@@ -26,7 +26,7 @@ import java.util.Scanner;
                 用时T2: a+3b+d ----这样的话就不用所有人都在划船了(最慢的那两个相差不大,划算),且划回来的永远是最快的那两个
         二者的等式两边减去同类型: T1:T2 = a+c:2b
                 那么每批4人,选择哪个策略则需比较哪个策略用时最短
-  解法: 1.由于策略二需要先送最慢的那两个,那就得四人一批为一轮,双指针--right指向最慢的那两个;
+  解法: 1.策略二需要先送最慢的那两个,那就得四人一批为一轮,双指针--right指向最慢的那两个;
         2.比较用时较短的那个策略就是眼前最优选择, time+=(s1<s2)?s1:s2;
         3.greed算法保留上一个最优解(time是多少)
         4.还有就是如果剩余人数渡河少于4人,
@@ -52,22 +52,24 @@ public class 渡河_B站 {
     }
 
     static void greedy(int n, int[] speed){
-        int right= speed.length-1;
+        int right= speed.length-1; //最慢的
         int time=0;
         while(n>0){
-            if (n==1) {
+            if (n==1) {  //还剩一个人:去a
                 time += speed[0];
                 n--;
             }
-            else if (n==2) {
-                time += speed[0] + speed[1];
+            else if (n==2) { //还剩下两个人:去b
+                time += speed[1];
                 n-=2;
             }
-            else if (n==3) {
+            else if (n==3) { //还剩三个人:去b+ 回a+ 去c
                 time += speed[0] + speed[1] + speed[right];
                 n-=3;
             }
             else {
+                //四个人为一轮, 一轮五趟可以将四人全都送过去
+                //比较两种贪心策略谁更小用谁
                 int s1=speed[0]*2+speed[1]+speed[right-1]+speed[right];
                 int s2=speed[0]+speed[1]*3+speed[right];
                 time+= s1<=s2?s1:s2;

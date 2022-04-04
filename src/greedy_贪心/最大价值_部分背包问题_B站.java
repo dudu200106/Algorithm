@@ -9,7 +9,7 @@ import java.util.Arrays;
 
  注意：每个物体可以只拿一部分，因此可以可切割一部分,让总重量恰好为C。
  */
-/*思路: 创建一个Thing类,顺着价值最高的物品装入, 最后还差多少则补上*/
+/*思路: 创建一个Thing类打包,顺着价值最高的物品装入, 最后还差多少则补上*/
 public class 最大价值_部分背包问题_B站 {
     public static void main(String[] args) {
         int[] w = {1, 2, 3, 4, 5};
