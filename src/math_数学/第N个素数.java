@@ -79,7 +79,7 @@ public class 第N个素数 {
         int[] prime=new int[length+1];
         int m=0; //质数的数量
         for (int i = 2; i < arr.length; i++) {
-            if (arr[i]==0){ //judge1:若是i为质数
+            if (arr[i]==0){ //judge1:若是i为质数        
                 prime[++m]=i;//重要!!先自增再记录第m+1个质数
                 arr[i]=i; //标记它的最小质因数--他自己
             }

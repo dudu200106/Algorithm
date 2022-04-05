@@ -8,8 +8,8 @@ public class Prime {
     public static void main(String[] args) {
         System.out.println(isPrime(9));
         System.out.println(isPrime(7));
-
-        HashMap<Integer, Integer> res= primeFacter(13);
+        //分解出所有质因数
+        HashMap<Integer, Integer> res= primeFacter( 44);
         StringBuilder sb=new StringBuilder();
         for (Map.Entry<Integer,Integer> entry: res.entrySet()) {
             int key=entry.getKey();
@@ -35,8 +35,8 @@ public class Prime {
     }
 
     /**
-     * 唯一分解定理: 大于1的正整数, 都能被分解成若干个质数的乘积: N=p1*p2*p3*...(pn都是正整数,可以重复)
-     * 质因数: 即使num的因数, 有是个质数
+     * 唯一分解定理: 大于1的正整数, 都能被分解成若干个质数的乘积: N=p1^n1*p2^n2*p3^n2*...(pn都是正整数,可以有重复)
+     * 质因数: 即是某个数的因数,又它的质数
      * @param num
      * @return num的因子
      */
