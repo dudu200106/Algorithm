@@ -38,7 +38,14 @@ public class FastPower {
    }
 
     public static void main(String[] args){
+        long start= System.nanoTime();
         System.out.println(fast1(9,5));
+        long end= System.nanoTime();
+        System.out.println("Solve1: "+ (end-start));
+
+        start= System.nanoTime();
         System.out.println(fast2(9,5));
+        end= System.nanoTime();
+        System.out.println("Solve2: "+ (end-start));
     }
 }

@@ -44,6 +44,8 @@ public class 天平称重_三进制 {
             else list.add(0,arr[j]-'0');
         }
         System.out.println(list);
+
+
         StringBuilder sb=new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i)==1) sb.append('+').append((int)Math.pow(3,list.size()-i-1));

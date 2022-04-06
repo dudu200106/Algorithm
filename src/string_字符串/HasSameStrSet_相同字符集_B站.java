@@ -21,12 +21,12 @@ public class HasSameStrSet_相同字符集_B站 {
     static boolean check(String str1,String str2){
         int[] helper=new int[256];
 
-        for (int i = 0; i < str1.length(); i++) {
+        for (int i = 0; i < str1.length(); i++) { //一个字符串放入数组
             int c=str1.charAt(i);
             helper[c]=1; //标记1记录出现过这个字符
         }
 
-        for (int j = 0; j < str2.length(); j++) {
+        for (int j = 0; j < str2.length(); j++) { //另一个字符串比较是否都有
             int c=str2.charAt(j);
             if (helper[c]==0)
                 return false;
@@ -37,14 +37,14 @@ public class HasSameStrSet_相同字符集_B站 {
     /*用hashMap*/
     static Boolean check1(String str1, String str2){
         HashMap<Character,Integer> map=new HashMap<>();
-        for (int i = 0; i < str1.length(); i++) {
+        for (int i = 0; i < str1.length(); i++) { //一个字符串放入Map
             Character c=str1.charAt(i);
             if (map.get(c)==null){
                 map.put(c,1);
             }
         }
 
-        for (int j = 0; j < str2.length(); j++) {
+        for (int j = 0; j < str2.length(); j++) { //另一个字符串遍历比较是否都有
             Character c=str2.charAt(j);
             if (map.get(c)==null)
                 return false;

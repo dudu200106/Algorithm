@@ -93,8 +93,9 @@ public class 货物摆放_2019 {
         for (long a : set) {
             for (long b : set) {
                 if (a*b >n) continue;
-                if (n%(a*b)==0&&set.contains(n/(a*b))) //
-                    res++;
+                for (long c : set)
+                    if (a*b*c == n)
+                        res++;
             }
         }
         return res;

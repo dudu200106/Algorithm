@@ -40,6 +40,7 @@ public class 一步之遥 {
     private static class Ext_gcd { //私有静态类, 可以得到最基础的贝祖数
         static int x, y;
 
+        /*step.1 根据裴蜀定理求出基础的贝祖数*/
         static int egcd(int a, int b) {
             if (b == 0) { //返回条件
                 x = 1;
@@ -54,6 +55,7 @@ public class 一步之遥 {
             return gcd;
         }
 
+        /*step.2 由贝祖定理解出线性方程的解*/
         static int linearEquatition(int a, int b, int m) throws Exception {
             int d = egcd(a, b);
             if (m % d != 0) {

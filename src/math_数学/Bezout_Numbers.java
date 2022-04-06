@@ -32,8 +32,34 @@ public class Bezout_Numbers {
      * @param b
      * @return gcd 最小大公约数:greatest common divisor
      */
+
+    /**
+    * 模板:
+    *   static int x;
+    *   static int y;
+    *   e_gcd(int a, int b)
+    *       if(b==0)
+    *           x=1;
+     *          y=0;
+     *          return a; //得到了gcd,返回
+     *
+     *      int gcd =e_gcd(b.a%b);
+     *      x1= x;
+     *      x= y;
+     *      y= x1- (a/b)*y;
+     *      return gcd;
+     *
+     *  linearEquatition(int a, b, m) :
+     *      int d= e_gcd(a,b);
+     *      if(m%d!=0)
+     *          return -1; //错误: m不是最大公约数的倍数
+     *      x*= m/d;
+     *      y*= m/d;
+     *      return d;
+    *
+    **/
     public static long egcb(long a,long b){
-        if(b==0) {
+        if(b==0) { //理解为什么b==0时, a就是最大公约数
             x =1;
             y =0;
             return a;

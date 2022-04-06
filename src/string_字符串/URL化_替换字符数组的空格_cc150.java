@@ -23,6 +23,7 @@ public class URL化_替换字符数组的空格_cc150 {
                 cnt++;
         }
         int len_new=len+cnt*2; //每个空格替换后多出两个空间
+        //双指针,一个指向原数组末尾, 一个指向新数组末尾
         int p1=len-1;
         int p2=len_new-1;
         for ( ; p1 >= 0; p1--) {

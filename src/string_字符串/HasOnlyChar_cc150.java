@@ -5,7 +5,7 @@ package string_字符串;
 public class HasOnlyChar_cc150 {
     public static void main(String[] args) {
         String str="abcdefga";
-        int[] help=new int[268]; //ASCII码 出现记录数组
+        int[] help=new int[256]; //ASCII码 出现记录数组
         for (int i = 0; i < str.length(); i++) {
             char c=str.charAt(i);
             if (help[c]==1) {
