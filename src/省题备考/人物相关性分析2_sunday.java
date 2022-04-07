@@ -34,23 +34,26 @@ public class 人物相关性分析2_sunday {
         List<Integer> Bob= match_sun(str,b);
 
         int ans = 0;
-        //alice-->bob
         for (int i = 0; i < Alice.size(); i++) {
-            for (int j = 0; j < Bob.size(); j++) {
-                if (Bob.get(j)-Alice.get(i)+5<n)
-                    ans++;
-                else
-                    break;
+            int l =0,r=-1;
+            while(r+1 < Bob.size() && Alice.get(i) > Bob.get(r+1)  ) {
+                r++;
             }
+            while (l<=r && Alice.get(i) >Bob.get(l)+n+3  ) {
+                l++;
+            }
+            ans += r-l+1;
         }
 
-        for (int j = 0; j < Bob.size(); j++) {
-            for (int i = 0; i < Alice.size(); i++) {
-                if (Alice.get(i)-Bob.get(j)+3<n)
-                    ans++;
-                else
-                    break;
+        for (int i = 0; i < Bob.size(); i++) {
+            int l  =0,r=-1;
+            while(r+1 < Alice.size() && Bob.get(i) > Alice.get(r+1)  ) {
+                r++;
             }
+            while (l<=r && Bob.get(i) >Alice.get(l)+n+5  ) {
+                l++;
+            }
+            ans += r-l+1;
         }
 
         System.out.println(ans);
@@ -69,15 +72,15 @@ public class 人物相关性分析2_sunday {
         Arrays.fill(shift,lenP+1);
 
         for (int i = 0; i < lenP; i++) {
-            shift[p.charAt(i)] = i;
+            shift[p.charAt(i)] = lenP - i;
         }
 
-        int sc = 0; //目标串扫描到的s的下标
+        int sc = 0; //s开始的下标
         while (sc <= lenS - lenP) {
-            int j=0; //p的相对下标
+            int j=0; //p的下标
             while(s.charAt(sc+j)==p.charAt(j)){
                 j++;
-                if (j==lenP ) {
+                if (j>=lenP ) {
                     if (check(s,sc,sc+lenP-1)) {
                         ans.add(sc);
                     }
