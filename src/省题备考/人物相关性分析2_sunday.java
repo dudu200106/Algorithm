@@ -20,40 +20,41 @@ import java.util.Scanner;
 
 public class 人物相关性分析2_sunday {
     public static void main(String[] args) {
-        /*Scanner in =new Scanner(System.in);
+        Scanner in =new Scanner(System.in);
         int n=in.nextInt();
         in.nextLine();
         String str=in.nextLine();
-        System.out.println(str);*/
-        int n=20;
-        String str="This is a story about Alice and Bob. Alice wants to send a private message to Bob.";
+        System.out.println(str);
+//        int n=20;
+//        String str="This is a story about Alice and Bob. Alice wants to send a private message to Bob.";
         String a="Alice";
         String b="Bob";
 
         List<Integer> Alice= match_sun(str,a);
         List<Integer> Bob= match_sun(str,b);
-
+        System.out.println(Alice);
+        System.out.println(Bob);
         int ans = 0;
         for (int i = 0; i < Alice.size(); i++) {
-            int l =0,r=-1;
-            while(r+1 < Bob.size() && Alice.get(i) > Bob.get(r+1)  ) {
-                r++;
+            for (int j = 0; j < Bob.size(); j++) {
+                int alice=Alice.get(i);
+                int bob=Bob.get(j);
+                if (alice<bob)
+                    continue;
+                if (bob-alice-5<=n)
+                    ans++;
             }
-            while (l<=r && Alice.get(i) >Bob.get(l)+n+3  ) {
-                l++;
-            }
-            ans += r-l+1;
         }
 
         for (int i = 0; i < Bob.size(); i++) {
-            int l  =0,r=-1;
-            while(r+1 < Alice.size() && Bob.get(i) > Alice.get(r+1)  ) {
-                r++;
+            for (int j = 0; j < Alice.size(); j++) {
+                int bob=Bob.get(i);
+                int alice=Alice.get(j);
+                if (bob<alice)
+                    continue;
+                if (alice-bob-3<=n)
+                    ans++;
             }
-            while (l<=r && Bob.get(i) >Alice.get(l)+n+5  ) {
-                l++;
-            }
-            ans += r-l+1;
         }
 
         System.out.println(ans);

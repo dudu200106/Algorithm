@@ -58,8 +58,8 @@ public class 最短摘要_B站 {
     * 注释: 若尾部已经到头了,首部还要继续向后移动--可能会产生更短的摘要,且尾部移动不了也判断不了了,只能在首部也放置check判断*/
     static void solve2(String[] s1, String[] keywords){
         int minLen=Integer.MAX_VALUE;
-        int begin=-1;
-        int end=-1;
+        int begin_res=-1;
+        int end_res=-1;
 
         int lastEnd=0; //上一个摘要的结尾,初始化为0
 
@@ -72,8 +72,8 @@ public class 最短摘要_B站 {
             else if (i>=lastEnd&&containAll(keywords,s1,i,lastEnd)){
                 if (lastEnd-i +1<minLen){ //判断是否更新摘要长度--算长度不要忘记 =1;
                     minLen=lastEnd-i+1;
-                    begin=i;
-                    end=lastEnd;
+                    begin_res=i;
+                    end_res=lastEnd;
                 }
                 else
                     continue;
@@ -93,8 +93,8 @@ public class 最短摘要_B站 {
                 else if (containAll(keywords,s1,i,lastEnd)){
                     if (lastEnd-i+1<minLen){
                         minLen=lastEnd-i+1;
-                        begin=i;
-                        end=lastEnd;
+                        begin_res=i;
+                        end_res=lastEnd;
                     }
                     else
                         break;
@@ -106,7 +106,9 @@ public class 最短摘要_B站 {
                 }
             }
         }
-        print(s1,begin,end);
+        if (minLen==Integer.MAX_VALUE)
+            print(s1,begin_res,end_res);
+
     }
 
     static void print(String[] str, int begin, int end){
