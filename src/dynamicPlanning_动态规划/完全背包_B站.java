@@ -31,8 +31,8 @@ public class 完全背包_B站 {
         int[][] dp=new int[n+1][cap+1]; //物品类型编号from 1 to n
         //初始化数据--0行和0列的数据都为零,这里恰好不用写了,已经好了
 
-        for (int i = 1; i <=n ; i++) {
-            for (int j = 1; j <= cap; j++) {
+        for (int i = 1; i <=n ; i++) { //物品种类下标
+            for (int j = 1; j <= cap; j++) { //背包容量
                 if (w[i-1]<=j){ //先判断够不够装
                     int v1=v[i-1]+dp[i][j-w[i-1]];//够装的话选一个,加上dp[i同类][剩下的容量]
                     int v2=dp[i-1][j];//不选
