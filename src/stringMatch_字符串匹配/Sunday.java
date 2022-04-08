@@ -22,7 +22,7 @@ public class Sunday {
         if (lenP > lenS) return -1;
         if (lenP == 0) return -1;
 
-        //1. 生成一个模式串的偏移表--shift[MAX_ACCSI], 代表若下一个字符是i的偏移量
+        //step.1 生成一个模式串的偏移表--shift[MAX_ACCSI], 代表若下一个字符是i的偏移量
         int[] shift = new int[256]; //扩展ASSCI码的长度
         Arrays.fill(shift,lenP+1);
 
@@ -30,9 +30,12 @@ public class Sunday {
             shift[p.charAt(i)] = lenP - i;
         }
 
+        //step.2 开始遍历
         int sc = 0; //s开始的下标
         while (sc <= lenS - lenP) {
-            int j=0; //p的下标
+
+            int j=0; //p的下标,每次都从0开始
+            /* 要么匹配成功,尾部+1; 要么失配,比对目标串尾下一个字符是否在目标串中*/
             while(s.charAt(sc+j)==p.charAt(j)){
                 j++;
                 if (j>=lenP) {
@@ -41,6 +44,7 @@ public class Sunday {
                 }
             }
             sc+=shift[s.charAt(sc+lenP)];
+
         }
         System.out.println("no");
         return -1;
