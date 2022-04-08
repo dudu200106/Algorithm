@@ -38,6 +38,7 @@ public class 迷宫 {
         Scanner scanner = new Scanner(System.in);
         int m = 21;
         int n = 32;
+
         char[][] graph = new char[m][n];
         int[][] vis = new int[m][n];//标记哪些点已经被访问
         Queue<Node> queue =new LinkedList<>();
@@ -45,13 +46,14 @@ public class 迷宫 {
             graph[i] = scanner.next().toCharArray();
         }
 
+        //先将起点放进去
         Node start =new Node(0,0,0); //起点坐标与深度
         queue.add(start);
         //四个方向
         int[] dx={1,-1,0,0};
         int[] dy={0,0,1,-1};
 
-        while(!queue.isEmpty()){
+        while(!queue.isEmpty()){ //开始对队列进行:取值,放入邻居
             Node poll =queue.poll();
             int x= poll.x;
             int y= poll.y;
@@ -66,7 +68,7 @@ public class 迷宫 {
 
             //加入该节点的邻居
             for (int i = 0; i < 4; i++) {
-                int x1 = x + dx[i];
+                int x1 = x + dx[i]; //这里可以控制方向先后
                 int y1 = y + dy[i];
                 if (x1 >=0 && x1 < m )
                     if(y1>=0 && y1<n )

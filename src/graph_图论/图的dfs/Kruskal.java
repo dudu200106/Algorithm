@@ -28,6 +28,7 @@ public class Kruskal {
             p[i]=i;
         }
     }
+
     public static void main(String[] args) {
         int res= solve(5);
         System.out.println(res);
@@ -38,6 +39,33 @@ public class Kruskal {
     /**
      *
      * @param n //总顶点数量
+     *
+     * 模板:
+     *      必要属性:
+     *          list -- 装最小生成树
+     *          p[] -- 并查集内部数组
+     *          //prev[] -- 前继, 这里可要可不要, 但最短路径可能是必要的
+     *      预处理:
+     *          edges=new Edge[M];
+     *          edges[0]=new Edge(...)
+     *          ......
+     *          for i from 顶点A to 顶点B
+     *              p[i]=i;  //起始的并查集
+     *
+     *      solve(n)  //n是节点数
+     *          sort(edges); //对边集有小到大排序
+     *          res=0; //记录最小生成树权重
+     *          for i from 0 to edges.length
+     *              fa= find[edges[i].from];
+     *              fb= find(edges[i].to);
+     *              if (fa!=fb) //若是不同并查集
+     *                  p[b]=a; //两点连接, 并入同一个集,根节点为起点from
+     *                  res+=edges[i].value;
+     *                  T.add(edges[i]);
+     *                  //prev[b]=a;
+     *                  if(T.size()==n-1)
+     *                      break;
+
      */
     static int solve(int n){
         //sort
