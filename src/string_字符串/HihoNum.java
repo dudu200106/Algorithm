@@ -19,6 +19,8 @@ public class HihoNum {
             char ch =s.charAt(head);
             if (hiho.indexOf(ch)>=0) { //找到有用的字符,停下
 
+                //这一题头部正好不用判定了 -- 头部判定的作用体会在row==s.length时, head还得继续滑动-->最短摘要
+
                 if (row == 0) { //第一次移动首部,得将当前末尾提到前面来
                     row = head;
                 }
@@ -27,26 +29,28 @@ public class HihoNum {
                 while (row < s.length()) {
                     char cr = s.charAt(row);
                     if (hiho.indexOf(cr) >= 0) { //有用
+
                         if (containAll(s, head, row)) { //符合判定
                             if (check(s,head,row) && row - head + 1 < minLen) {
                                 minLen = row - head + 1;
                                 start_res = head;
                                 end_res = row;
                             }
-                            break; //停下, 不用row++
+                            break; //有用且符合判定, row停下
                         }
                         else
-                            row++; //有用.但不符合判定继续后移尾部
+                            row++; //有用 && 不符合判定, 窗口尾部滑动
                     }
                     else
-                        row++; //没有用
+                        row++; //没有用, 窗口尾部滑动
                 }
+
             }
             head++;
 
         }
 
-        if (minLen==Integer.MAX_VALUE){
+        if (minLen==Integer.MAX_VALUE){ //未匹配到模式串
             System.out.println(start_res + " " + end_res);
             return "";
         }
