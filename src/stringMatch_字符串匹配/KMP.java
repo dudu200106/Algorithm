@@ -3,32 +3,26 @@ package stringMatch_字符串匹配;
 public class KMP {
     public static void main(String[] args) {
         String sc = "babababcbabababb";
-        int index = indexOf(sc,"bababb");
+        int index1 = indexOf(sc,"bababb");
         int count =indexOf2(sc,"bababb");
-        System.out.println(index);
+        System.out.println(index1);
+        System.out.println(count );
     }
 
     static int indexOf(String str, String p){
-        int i=0;
-        int scan=i;
-        int j=0;
-        while (i<str.length()){
-            char c_s=str.charAt(scan);
-            char c_p=p.charAt(j);
-            if (c_s==c_p){
-                if (j==p.length()-1)
-                    return i;
+        int i = 0, j = 0;
+        while (i<str.length() && j<p.length()){
+            if (str.charAt(i)==p.charAt(j)){
+                i++;
                 j++;
-                scan++; //scan++可能会越界, 也可以考虑j==p.length()放在此处
-               /* if (j==p.length())
-                    return i;*/
             }
             else { //失配母串下标i就得回溯至原位置并加一,j重置为0
-                i++;
+                i= i-j+1;
                 j=0;
-                scan=i;
             }
         }
+        if (j==p.length())
+            return i-j;
         return -1; //母串s不存在模式串p
     }
 
@@ -58,12 +52,40 @@ public class KMP {
         return cnt;
     }
 
-    /*DP状态转移方程: next[i]=max{j} max{j}指的是:以i-1结尾的后缀,与0开头的前缀的最大相同子串长度;
-                    每个相同前后缀的长度j都是next[i]的候选值, 只有最长的j才是最优解-- 即同时满足两个条件的才是next[i]:
-                    1.候选值(前后缀相同), 2.最长的候选值(前后缀相同)长度
-     具体决策如下:
+    /*
+        next[i]的含义: 当第i个模式串字符失配时, 模式串的指针j指向i-1结尾后缀相同前缀末尾的后一位 -- 即next[i]位,
+         重新与失配字符匹配; 若不匹配直到j=next[...next[i]]=-1, j++, next[i]=j/0/-1+1;
+        DP状态转移方程: next[i]=
+                        -1, (i=0, 即首字符无xt前缀)
+                        0, (其他情况--前缀无任何匹配)
+                        max{j}
+                            ---(满足以下要求:)
+                                1. 以j-1结尾的后缀的相同前缀(多个候选值)
+                            `   2. 是候选值中,相同前缀中长度最长的结尾下标+1
+
+        具体决策如下:
+            注: 为了方便, next[i+1]其实代表 以i结尾的后缀的相同前缀的下标后一位, 方便失配后j跳转与i+1位字符进行二次比较
     */
     static int[] next(String str){
+        int[] next=new int[str.length()];
+        // 初始dp状态
+        next[0]=-1;
+
+        int i = 0; // 当前待求next[i]的字符
+        int j = next[i]; //j=-1,-- j是当前最长相同前缀的末尾指针+1
+        //(若要论DP的含义,就是利用了历史最优解和他们的问题,通过决策实现当前最优解)
+        while(i<str.length()-1){
+            if (j==-1||str.charAt(i)==str.charAt(j)) { // 前缀没有匹配的(到头了都没有相同的字符) 或者 字符i与字符j相等
+                //利用了next数组的含义: 前后缀相同, 若是新增前后缀后面字符相等, 则同时+1
+                next[++i] = ++j;
+            }
+            else //否则字符j与字符i失配, j回溯到next[j], 再与i进行比较
+                j=next[j]; //若是结尾字符和回溯字符也失配, 继续调到回溯字符的回溯位置,直至上方条件成立
+        }
+        return next;
+    }
+
+    static int[] next2(String str){
         int[] next=new int[str.length()]; //防止str只有一位数
         next[0]=-1;
 //        if(str.length()==1) return next;//防止str只有一位数
@@ -82,5 +104,6 @@ public class KMP {
         }
         return next;
     }
+
 
 }
