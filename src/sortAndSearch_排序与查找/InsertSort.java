@@ -16,11 +16,10 @@ class InsertSort {
         for (int i = 1; i < n; i++) { //前缀数组的后一位下标
             int temp = arr[i]; //保存, 方便比较和移动(这里在一边比较,一边移动)
             int j; //避免循环变量不能拿出来用
-            for (j = i-1; j > 0; j--) {
-                if (arr[j]>temp)
-                    arr[j] = arr[j-1];
+            for (j = i-1; j > 0 && arr[j]>temp; j--) {
+                arr[j] = arr[j-1];
             }
-            arr[j] = temp; // 插入到合适位置
+            arr[j+1] = temp; // 插入到合适位置, 注意j要+1
         }
     }
 
@@ -31,7 +30,7 @@ class InsertSort {
             for (j = i; j >0 && arr[j-1]>temp; j--) { // 短路&的特性, 这里j>0在前,否则arr[j-1]越界
                     arr[j]=arr[j-1];
             }
-            arr[j]=temp;
+            arr[j+1]=temp;
         }
     }
 
