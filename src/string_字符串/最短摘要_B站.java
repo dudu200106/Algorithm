@@ -66,45 +66,44 @@ public class 最短摘要_B站 {
         for (int i = 0; i < s1.length; i++) {
             String word1=s1[i];
             int index= Arrays.binarySearch(keywords,word1);
-            if (index<0){ //首部不符合,直接下一个
-                continue;
-            }
-            else if (i>=lastEnd&&containAll(keywords,s1,i,lastEnd)){
-                if (lastEnd-i +1<minLen){ //判断是否更新摘要长度--算长度不要忘记 =1;
-                    minLen=lastEnd-i+1;
-                    begin_res=i;
-                    end_res=lastEnd;
+            if (index>-1) { //首部字符符合, 停下
+
+                if (i >= lastEnd && containAll(keywords, s1, i, lastEnd)) { //符合判定, 且头部不超过尾部
+                    if (lastEnd - i + 1 >= minLen) //是否更新摘要长度 -- 你算长度不要忘记 =1;
+                        continue;
+                    minLen = lastEnd - i + 1;
+                    begin_res = i;
+                    end_res = lastEnd;
                 }
-                else
-                    continue;
-            }
-            //尾部
-            if(lastEnd==0){ //若是找到第一个符合的首部,则尾部j下移到他的位置,方便继续往后移
-                lastEnd=i;
-            }
-            l1:
-            while(lastEnd<s1.length){ //不断调整尾部直至符合匹配
-                String word2=s1[lastEnd];
-                int index2=Arrays.binarySearch(keywords,word2);
-                if (index2<0){ //尾部在调整,若是连尾部的字符串都不包括在keywords里,直接continue,不用麻烦containAll
-                    lastEnd++;
-                    continue l1;
+
+                //尾部
+                if (lastEnd == 0) { //第一次找到符合的首部,则尾部j下移到他的位置,方便继续往后移
+                    lastEnd = i;
                 }
-                else if (containAll(keywords,s1,i,lastEnd)){
-                    if (lastEnd-i+1<minLen){
-                        minLen=lastEnd-i+1;
-                        begin_res=i;
-                        end_res=lastEnd;
+                l1:
+                while (lastEnd < s1.length) { //不断调整尾部直至符合匹配
+
+                    String word2 = s1[lastEnd];
+                    int index2 = Arrays.binarySearch(keywords, word2);
+                    if (index2 < 0) { //尾部在调整,若是连尾部的字符串都不包括在keywords里,直接continue,不用麻烦containAll
+                        lastEnd++;
+                        continue l1;
+                    } else if (containAll(keywords, s1, i, lastEnd)) {
+                        if (lastEnd - i + 1 < minLen) {
+                            minLen = lastEnd - i + 1;
+                            begin_res = i;
+                            end_res = lastEnd;
+                        } else
+                            break;
+                    } else {
+                        lastEnd++;
+                        continue;
                     }
-                    else
-                        break;
+
                 }
-                else
-                {
-                    lastEnd++;
-                    continue;
-                }
+
             }
+
         }
         if (minLen==Integer.MAX_VALUE)
             print(s1,begin_res,end_res);

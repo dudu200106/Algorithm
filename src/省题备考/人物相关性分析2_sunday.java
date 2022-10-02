@@ -87,7 +87,12 @@ public class 人物相关性分析2_sunday {
                     break;
                 }
             }
-            sc+=shift[s.charAt(sc+lenP)];
+            int next =sc+p.length();
+            if (next<s.length())
+                sc+=shift[s.charAt(sc+lenP)];
+            else
+                break;
+
         }
 
         return ans;
@@ -100,7 +105,7 @@ public class 人物相关性分析2_sunday {
         if (e<str.length()-1)
             if (str.charAt(e + 1) != ' ' && str.charAt(e + 1) != '.')
                 return false;
-
         return true;
     }
+
 }

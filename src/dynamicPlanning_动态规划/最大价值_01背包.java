@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 /**
  *  因为对每个物品只有选和不选两种情况，所以这个问题称为01背包。
+ *          0/1背包的核心: 第i个物品的放与不放
  *
  * 1.明确状态（x）： 物品指针：cur，与 剩余容量： cap
  * 2.dp方程目的（f(x,y)）：dp(物品指针cur,剩余容量cap）=背包装下的最大价值；
@@ -97,7 +98,7 @@ public class 最大价值_01背包 {
     static int dp(){
         //1.创建dp table
         int[][] dp=new int[n][Cap+1];
-        //2.实例化第一行 (dp[0][cap])
+        //2.实例化第一行--容量数 (dp[0][cap])
         for (int i = 1; i < Cap+1; i++) {
             dp[0][i]=i;
         }
