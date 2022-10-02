@@ -39,13 +39,13 @@ public class Quick_最小可用id_B站 { //非负数
 
     public static int minAvailableID04(int[] arr, int prior, int row){
         int minOfArr=1000001;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) { //先找出最小值
             if (arr[i]<minOfArr)
                 minOfArr=arr[i];
         }
-        int mid= QuickSort.partition02(arr,prior,row);
+        int mid= QuickSort.partition01_1(arr,prior,row);
         if (arr[mid]==mid+minOfArr+1&&arr[mid-1]!=mid+minOfArr) return mid+minOfArr;
-        if(arr[mid]==mid+minOfArr)//左侧紧密,放弃左侧
+        if(arr[mid]==mid+minOfArr)// 左侧紧密,放弃左侧
             return minAvailableID04(arr,mid+1,row);
         else
             return minAvailableID04(arr,prior,mid-1);
