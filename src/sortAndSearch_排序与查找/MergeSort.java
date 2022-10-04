@@ -3,8 +3,9 @@ package sortAndSearch_排序与查找;
 import java.util.Arrays;
 
 /**
- * 1. merge: 合并左右有序数组, 创建辅助盘,不断比较左右两边最小的值,决定谁先入栈(因为这个方法需要左右分别都有序)
- * 2. merge_sort: 拆分数组, 再递归向下拆分两个子数组; 结束递推,合并回溯回来的两个子数组
+ * 1. merge: 将前后相邻的有序表合并为一个有序表,创建辅助盘,不断找出左右两个有序表中最小的值,
+ *      决定谁先入栈(因为这个方法需要左右分别都有序)
+ * 2. merge_sort: 拆分数组, 再递归向下拆分两个子数组(结束递推后,merge方法合并出栈回来的两个子数组)
  */
 public class MergeSort {
     // merge_sort的实现过程是自顶向下又自底向上的(分治压入栈后又合并出栈)
@@ -26,21 +27,16 @@ public class MergeSort {
         int left=low; //左边最小的首指针
         int right=mid+1;
         //2. 比较左右栏的最小值谁先入栈
-        while(left<=mid&&right<=high){
-            if (helper[left]<=helper[right]) {
-                arr[current] = helper[left];
-                left++;
-                current++;
-            }else {
-                arr[current] = helper[right];
-                right++;
-                current++;
-            }
+        while(left<=mid && right<=high){
+            if (helper[left]<=helper[right])
+                arr[current++] = helper[left++];
+            else
+                arr[current++] = helper[right++];
         }
-        //3. 若某一边数值先入栈完时，右栏倒是不用处理了(辅助盘拷贝原数组,剩下的几个大数字的位置-->||刚好是一样的)，左边就得单独入栈
-        while(left<=mid)
+        //3. 相邻有序表的必有某个表元素先全部入栈，剩下的另一个表中元素单独入栈
+        while(left<=mid) //前一个有序表单独入栈
             arr[current++]=helper[left++];
-
+        //若是后一个有序表剩下了,刚好对应原数组中的大小顺序位置,可以省略单独入栈过程 (辅助盘拷贝原数组,右边剩下有序数字的就是最大的几个)
     }
 
     public static void main(String[] args) {

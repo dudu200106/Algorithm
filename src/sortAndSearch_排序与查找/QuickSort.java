@@ -8,7 +8,7 @@ import java.util.Arrays;
  * 1. partition: 使原数组分割成两栏, 左小于pivot(枢轴),右大于pivot;
  *      最后返回pivot最后的位置, 给quick_sort方法做中位数, 分治递归排序;
  * 2. quick_sort: 拆分, 递归向下拆分数组至只剩两个, 递归后向上出栈合并,变得有序;
- * (每次都分割时都调整为左小右大,当向下细分到只有两个时, 全部就排好了)
+ *      (每次都分割时都调整为左小右大,当向下细分到只有两个时, 全部就排好了)
  */
 public class QuickSort {
     public static void quick_sort(int[] arr, int low, int high){
@@ -20,7 +20,7 @@ public class QuickSort {
     }
 
     /**
-     * 最好用的双向扫描的简化版本--来自严蔚敏版本, 更清晰易懂
+     * 最好用的双向扫描的简化版本--来自严蔚敏教材版本, 更清晰易懂
      * 这个版本好在把枢轴提出来保存起来了, 使得原数组空了一位, 方便交换
      * @param arr
      * @param low
@@ -30,11 +30,9 @@ public class QuickSort {
     public static int partition01_1(int[] arr, int low, int high) {
         int pivot = arr[low]; //保存枢轴, 随后首先找一个小于pivot的数覆盖他的位置
         while (low<high){
-            while (low<high && arr[high]>pivot)
-                high--;
+            while (low<high && arr[high]>pivot) high--;
             arr[low] = arr[high];
-            while (low<high && arr[low]<pivot)
-                low++;
+            while (low<high && arr[low]<pivot) low++;
             arr[high] = arr[low];
         }
         arr[low] = pivot;
@@ -42,7 +40,7 @@ public class QuickSort {
     }
 
     /** 双向扫描优化版本，避免每次都是最坏情况时间复杂度:O(n^2), 参考的主元枢轴最好是中位数
-     *      有两种主要的方法
+     *      有两种主要的方法:
      * */
     public static int partition03(int[] arr, int low, int high){
         // 参考的主元,用三点比较求中位数
@@ -88,23 +86,23 @@ public class QuickSort {
     }
 
 
-    /*双向扫描的思路是:
-    头尾指针往中间扫描，从左找到大于主元的元素，从右找到小于等于主元的元素二者交换，
-    继续扫描，直到左侧无大元素，右侧无小元素*/
-    public static int partition02(int[] arr, int prior, int row){
-        int pivot=arr[prior]; //定义一个参考的主元
-        int left=prior+1;
-        int right=row;
-        while(left<=right) { // 指针交错，停止迭代
-            //得考虑极端边界情况，如果主元pivot恰好最大/最小，边界值指针会冲出去越界
-            while (left<=right && arr[left]<=pivot) left++;
-            while (left<=right && arr[right]>=pivot) right--;
-            if(left<right) //防止越界. while的最后一个条件不满足循环条件跳出，肯定过界了，不能交换
-                util.util.swap(arr,left,right);
-        }
-        util.util.swap(arr,right,prior);
-        return right;//中位数
-    }
+//    /*双向扫描的思路是:
+//    头尾指针往中间扫描，从左找到大于主元的元素，从右找到小于等于主元的元素二者交换，
+//    继续扫描，直到左侧无大元素，右侧无小元素*/
+//    public static int partition02(int[] arr, int prior, int row){
+//        int pivot=arr[prior]; //定义一个参考的主元
+//        int left=prior+1;
+//        int right=row;
+//        while(left<=right) { // 指针交错，停止迭代
+//            //得考虑极端边界情况，如果主元pivot恰好最大/最小，边界值指针会冲出去越界
+//            while (left<=right && arr[left]<=pivot) left++;
+//            while (left<=right && arr[right]>=pivot) right--;
+//            if(left<right) //防止越界. while的最后一个条件不满足循环条件跳出，肯定过界了，不能交换
+//                util.util.swap(arr,left,right);
+//        }
+//        util.util.swap(arr,right,prior);
+//        return right;//中位数
+//    }
 
 
 

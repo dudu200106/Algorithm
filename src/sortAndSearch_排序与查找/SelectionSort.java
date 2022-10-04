@@ -12,10 +12,10 @@ public class SelectionSort {
     public static void selection_Sort(int[] arr){
         for (int i=0; i< arr.length ; i++) { //相当于"第i+1小"的值
             int indexMin=i; //相比冒泡不用每次都交换，保存了当前范围内的最大值的下标后,和天花板值(最右值)交换
-            int j= i+1;
-            for ( ; j<arr.length; j++) { //找出第n大的值（n=1,2,3。。。）
+            int j;
+            for (j=i+1; j<arr.length; j++) { //找出第n大的值（n=1,2,3。。。）
                 if (arr[j]<arr[indexMin]){
-                    indexMin=j;
+                    indexMin=j; //更换最小值元素下标
                 }
             }
             if (indexMin != i)
