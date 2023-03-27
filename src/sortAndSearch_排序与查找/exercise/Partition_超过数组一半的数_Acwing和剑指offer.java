@@ -48,6 +48,7 @@ public class Partition_超过数组一半的数_Acwing和剑指offer {
         int pivot=arr[prior];
         int scan=prior;
         int bigger=row;
+
         while(scan<=bigger){
             if (arr[scan] <= pivot)
                 scan++;

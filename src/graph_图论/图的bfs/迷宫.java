@@ -32,6 +32,11 @@ import java.util.Scanner;
 求最短需要走多少步？
 * */
 
+/**
+ * 注: bfs不用递归!!!
+ *  纯靠队列, 不停地出队入队, 直至队中再无元素
+ */
+
 public class 迷宫 {
 
     public static void main(String[] args) {
@@ -39,21 +44,20 @@ public class 迷宫 {
         int m = 21;
         int n = 32;
 
-        char[][] graph = new char[m][n];
-        int[][] vis = new int[m][n];//标记哪些点已经被访问
-        Queue<Node> queue =new LinkedList<>();
+        //四个方向, 用于上下左右移动
+        int[] dx={1,-1,0,0};
+        int[] dy={0,0,1,-1};
+        char[][] graph = new char[m][n];  // 存放输入--地图数据
         for (int i = 0; i < m; i++) {
             graph[i] = scanner.next().toCharArray();
         }
+        int[][] vis = new int[m][n];//标记哪些点已访问
+        Queue<Node> queue =new LinkedList<>();
 
         //先将起点放进去
-        Node start =new Node(0,0,0); //起点坐标与深度
+        Node start =new Node(0,0,0); //起点坐标与深度/距离, 也可放在vis数组中, 最后输出终点的vis[tx][ty]
         queue.add(start);
-        //四个方向
-        int[] dx={1,-1,0,0};
-        int[] dy={0,0,1,-1};
-
-        while(!queue.isEmpty()){ //开始对队列进行:取值,放入邻居
+        while(!queue.isEmpty()){ //队列队首出队, 放入并处理其所有邻居
             Node poll =queue.poll();
             int x= poll.x;
             int y= poll.y;
@@ -70,11 +74,11 @@ public class 迷宫 {
             for (int i = 0; i < 4; i++) {
                 int x1 = x + dx[i]; //这里可以控制方向先后
                 int y1 = y + dy[i];
-                if (x1 >=0 && x1 < m )
-                    if(y1>=0 && y1<n )
-                        if (vis[x1][y1]==0 && graph[x1][y1]=='.'){
-                            queue.add(new Node(x1,y1,depth+1));
-                }
+                if (x1 >=0 && x1 < m && y1>=0 && y1<n )  // 未出队
+                    if (vis[x1][y1]==0 && graph[x1][y1]=='.'){  //没访问过, 且能走
+                        queue.add(new Node(x1,y1,depth+1));  //邻居入队
+                        /* 这里可以根据题目加入相关的额外处理 */
+                    }
             }
         }
 
