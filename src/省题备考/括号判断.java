@@ -44,24 +44,24 @@ public class 括号判断 {
     public static boolean isValid(String s){
         if(s.length()<=1)
             return false;
-
+        // 用可变字符串, 来充当一个栈
         StringBuilder sb = new StringBuilder();
         boolean flag= true;
 
         for(int i=0; i<s.length(); i++){
-            //当前字符左括号, 入栈相对于括号
-            if(s.charAt(i)=='('){
+            char c_t = s.charAt(i);  // 当前字符
+            //当前字符为左括号, 那入栈一个右括号
+            if(c_t == '('){
                 sb.append(')');
             }
-            else if('['==s.charAt(i)){
+            else if('['==c_t){
                 sb.append(']');
-            }else if('{'==s.charAt(i)){
+            }else if('{'==c_t){
                 sb.append('}');
-            }else{
-                //如果当前元素为右括号, 则判断栈顶元素是否相同相同就出栈栈顶元素
+            }else{  // 如果当前元素为右括号, 则要判断栈顶元素是否相同, 相同就弹出栈顶元素
                 int len=sb.length();
-                if(len>0 && sb.charAt(len-1)==s.charAt(i)){
-                    sb.delete(len-1,len);
+                if(len>0 && sb.charAt(len-1)== c_t){
+                    sb.delete(len-1,len);  //弹出
                 }else{
                     flag=false;
                     break;

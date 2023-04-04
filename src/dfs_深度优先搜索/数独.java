@@ -59,6 +59,13 @@ import java.util.Scanner;
 796318452
 */
 
+/*
+  收获:
+  1. 学习了二维数组在dfs中的换行 --> dfs(x+(y+1)/9, (y+1)%9)
+  2. 在不断穷举试错的搜索中, 回溯 是比较常见的选择
+  3. 在2.的基础上延伸, dfs也非常适合二维数组的连通性和可达性分析
+*/
+
 public class 数独 {
     public static void main(String[] args) {
         // System.out.println((char)('0'+1));

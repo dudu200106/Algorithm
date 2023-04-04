@@ -106,6 +106,7 @@ public class Dijkstra_蓝桥王国_PriorityQueue优先队列_优化版 {
             this.prev = prev;
         }
 
+        // 要实现优先队列, 必须实现Comparable接口, 重写compareTo方法
         public int compareTo(SNode o) {
             return Integer.compare(this.dis, o.dis);
         }

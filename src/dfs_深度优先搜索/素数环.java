@@ -13,8 +13,13 @@ import java.util.Scanner;
  * 1 4 3 2 5 6
  * 1 6 5 2 3 4
  *
- * 思路:类似全排列, 但要加上剪枝和回溯(可以数值转下标used[],标记是否使用过)
+ * 思路:dfs, 风格类似全排列, 但要加上剪枝和回溯(可以数值转下标used[],标记是否使用过)
  */
+
+    /*
+    * 收获 :
+    *   1. 又是一题dfs试错搜索的题目, 记得回溯
+    * */
 public class 素数环 {
 
     public static void main(String[] args) {

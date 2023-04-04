@@ -13,7 +13,8 @@ public class Coins_cc150 {
         int[] coin={25,10,5,1};
 //        return dfs1(money,coin,0);
         int[][] map=new int[money+1][coin.length];
-        return dfs2(money,coin,0,map); //dp优化版本
+//        return dfs2(money,coin,0,map); //dp优化版本
+        return dfs1(money,coin,0); //dp优化版本
     }
 
 
