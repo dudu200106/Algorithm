@@ -9,7 +9,8 @@
         <module name="Leetcode" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
+      <module name="huawei-od" target="8" />
       <module name="Leetcode" target="8" />
     </bytecodeTargetLevel>
   </component>
