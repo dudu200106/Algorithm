@@ -9,9 +9,9 @@ package dynamicPlanning_动态规划;
  * 思路:
  * 完全背包问题每种物品数量无限,
  *
- * 首先在初始化最后一行的时候有所不同：初始化时，当只考虑一件物品a时，state[row][j] = values[row]*j/weight[row]
- * 然后在递推的时候有些不同：state[row][j] = max{state[row+1][j],state[row][j-weight[row]]+values[row]}，即不抓时用现在的容量去匹配下面行
- * 要选择的时候，先选一个物品,减去重量，然后用剩下的容量去匹配同一行(dp[row][cap-w[i]] )，
+ * 首先,初始化的时候有所不同：初始化时，当只考虑一件物品为a时，dp[row][j] = values[row]*j/weight[row]
+ * 然后dp方程式有所不同：dp[row][j] = max{dp[row-1][j],dp[row][j-w[row]] + v[row]}，
+ * 要选择的时候，先选一个物品,减去重量，然后用去找上一个物品row-1在cap-w[i]状态下的最大值(dp[row-1][cap-w[i]] )，
  *     为什么匹配同一行，这是因为同一行同一种物品,剩下的容量转态中(cap-w[i] ),包含了选2个,3个...的最大dp值
  *
  * 必须理解，抓一个之后用剩余的容量重新考虑当前可选的所有物品其实包含了抓2个甚至更多的情况！！！
@@ -34,7 +34,7 @@ public class 完全背包_B站 {
         for (int i = 1; i <=n ; i++) { //物品种类下标
             for (int j = 1; j <= cap; j++) { //背包容量
                 if (w[i-1]<=j){ //先判断够不够装
-                    int v1=v[i-1]+dp[i][j-w[i-1]];//够装的话选一个,加上dp[i同类][剩下的容量]
+                    int v1=v[i-1]+dp[i][j-w[i-1]];//注意,这里和01背包不同
                     int v2=dp[i-1][j];//不选
                     dp[i][j]=Math.max(v1,v2);
                 }

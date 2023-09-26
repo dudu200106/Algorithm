@@ -23,15 +23,15 @@ import java.util.Arrays;
  *  因为对每个物品只有选和不选两种情况，所以这个问题称为01背包。
  *          0/1背包的核心: 第i个物品的放与不放
  *
- * 1.明确状态（x）： 物品指针：cur，与 剩余容量： cap
- * 2.dp方程目的（f(x,y)）：dp(物品指针cur,剩余容量cap）=背包装下的最大价值；
+ * 1.明确状态（x）： 物品指针：cur，与 容量： cap
+ * 2.dp方程目的（f(x,y)）：dp(物品指针cur,容量cap）=背包装下的最大价值；
  * 3.状态转移方式(自变量)：cap与cur的变换
  * 4.base case(最小边界值)：cap==0 ， cur==3；
  * 5.构造dp table（dp数组，二维）
  */
 public class 最大价值_01背包 {
-    static int[] weight={2,3,4,7};
-    static int[] value={1,3,5,9};
+    static int[] weight={0,2,3,4,7};
+    static int[] value={0,1,3,5,9};
     static int n=4;
     static int Cap=10;
     static int[][] rec=new int[n][Cap+1];
@@ -42,14 +42,14 @@ public class 最大价值_01背包 {
     }
 
     public static void main(String[] args) {
-        int res=dfs(0,Cap);
+        int res=dfs(1,Cap);
         int start = (int)System.nanoTime();
         System.out.println(res);
         int end =(int)System.nanoTime();
         System.out.println("dfs:" + (end - start) + "ns");
 
         start = (int)System.nanoTime();
-        System.out.println(iterate(Cap,0));
+        System.out.println(iterate(Cap,1));
         end =(int)System.nanoTime();
         System.out.println("iterate:" + (end - start) + "ns");
 
@@ -62,15 +62,16 @@ public class 最大价值_01背包 {
 
     /*dfs版本*/
     static int dfs(int cur, int cap){
-        if (cur==4) return 0; //装完退出
+        if (cur==5) return 0; //装完退出
         if (cap<=0) return 0; //装完装不下了
 
-        int v1=dfs(cur+1,cap);
-        if (cap>=weight[cur]){
-            int v2=value[cur]+dfs(cur+1,cap-weight[cur]);
+        int v1=dfs(cur+1,cap); // 不装
+        if (cap < weight[cur])
+            return v1;
+        else{
+            int v2=dfs(cur+1,cap-weight[cur])+ value[cur];
             return Math.max(v1,v2);
         }
-        else return v1;
     }
 
     /*记忆型递归--相当于在数组里就“剪枝”，返回其在数组中的值*/
@@ -97,14 +98,11 @@ public class 最大价值_01背包 {
     /*动态规划版本,dp table的建立*/
     static int dp(){
         //1.创建dp table
-        int[][] dp=new int[n][Cap+1];
-        //2.实例化第一行--容量数 (dp[0][cap])
-        for (int i = 1; i < Cap+1; i++) {
-            dp[0][i]=i;
-        }
+        int[][] dp=new int[n+1][Cap+1];
+
         //3.开始实例化,递推其他行的结果(自底向上)
-        for (int i = 1; i <n ; i++) {
-            for (int j = 0; j < Cap+1; j++) {
+        for (int i = 1; i < n+1 ; i++) {
+            for (int j = 1; j < Cap+1; j++) {
                 //若是要得起
                 if (j>=weight[i]){
                     int v1=value[i]+dp[i-1][j-weight[i]]; //要
@@ -116,7 +114,7 @@ public class 最大价值_01背包 {
                     dp[i][j]=dp[i-1][j];
             }
         }
-        return dp[n-1][Cap];
+        return dp[n][Cap];
     }
 
 }
