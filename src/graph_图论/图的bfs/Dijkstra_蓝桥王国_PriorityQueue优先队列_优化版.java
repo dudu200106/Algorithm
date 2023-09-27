@@ -29,7 +29,6 @@ public class Dijkstra_蓝桥王国_PriorityQueue优先队列_优化版 {
     static int M ;
     static ArrayList<Edge>[] edges ;
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
