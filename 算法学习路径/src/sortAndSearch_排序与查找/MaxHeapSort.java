@@ -1,5 +1,7 @@
 package sortAndSearch_排序与查找;
 
+import util.ArrayUtil;
+
 import java.util.Arrays;
 
 /**
@@ -24,7 +26,7 @@ public class MaxHeapSort {
         if (arr[i]<=arr[root])
             return;
         //交换父子结点的值
-        util.util.swap(arr, root, i);
+        ArrayUtil.swap(arr, root, i);
         //继续递归向下调整新形成的子树
         heapAdjust(arr,i,len);
     }
@@ -58,7 +60,7 @@ public class MaxHeapSort {
         buildMaxHeap(arr,len);
         //对换二叉堆根节点与最后未排序的节点(根节点是最大值/最小值,相当于将最大/小值顶到数组末尾)
         for (int i=len; i>0; i--){
-            util.util.swap(arr,i-1,0); //交换最后一个叶结点(堆底,数组尾部元素)
+            ArrayUtil.swap(arr,i-1,0); //交换最后一个叶结点(堆底,数组尾部元素)
             heapAdjust01(arr,0, i-1); //堆的大小减一
         }
         //缩小树范围,并调整新根节点的二叉堆(这样不断调换,不断缩小二叉堆,不断向下调整新二叉堆,最终大小顶堆调换,)

@@ -1,6 +1,14 @@
 package util;
 
-public class util {
+/**
+ * 这是一个自制的数组工具类，包括：
+ *      * 交换数组元素位置
+ *      * 查找数组最大值
+ *      * 查找数组最小值
+ *      * 打印数组
+ *      * 拷贝数组
+ */
+public class ArrayUtil {
 
     public static int pp=0;
 

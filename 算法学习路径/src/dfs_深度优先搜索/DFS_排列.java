@@ -1,5 +1,7 @@
 package dfs_深度优先搜索;
 
+import util.ArrayUtil;
+
 import java.util.ArrayList;
 
 public class DFS_排列 {
@@ -43,9 +45,9 @@ public class DFS_排列 {
             list.add(new String(arr));
         }
         for (int i = k; i < arr.length; i++) {
-            util.util.swap(arr,k,i);
+            ArrayUtil.swap(arr,k,i);
             dfs02(arr, k+1);
-            util.util.swap(arr,k,i); //回溯，因为需要恢复原来的状态，重新开始新的路径
+            ArrayUtil.swap(arr,k,i); //回溯，因为需要恢复原来的状态，重新开始新的路径
         }
     }
 

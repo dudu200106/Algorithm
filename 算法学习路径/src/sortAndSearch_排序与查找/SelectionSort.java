@@ -1,6 +1,6 @@
 package sortAndSearch_排序与查找;
 
-import util.util;
+import util.ArrayUtil;
 import java.util.Arrays;
 
 /**
@@ -19,7 +19,7 @@ public class SelectionSort {
                 }
             }
             if (indexMin != i)
-            util.swap(arr,indexMin,i); //交换，只交换了一次
+            ArrayUtil.swap(arr,indexMin,i); //交换，只交换了一次
         }
     }
 

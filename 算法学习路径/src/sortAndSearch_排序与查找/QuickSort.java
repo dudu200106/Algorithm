@@ -1,5 +1,7 @@
 package sortAndSearch_排序与查找;
 
+import util.ArrayUtil;
+
 import java.util.Arrays;
 
 
@@ -50,7 +52,7 @@ public class QuickSort {
         if (arr[high]>arr[midIndex]&&arr[high]<arr[low])
             midIndex=high;
         // 和第一个元素交换, 这样就又变成了熟悉的样子
-        util.util.swap(arr,low,midIndex);
+        ArrayUtil.swap(arr,low,midIndex);
         int pivot = arr[low];
         while(low<high) {
             //得考虑极端边界情况，如果主元pivot恰好最大/最小，边界值指针会冲出去越界
@@ -77,11 +79,11 @@ public class QuickSort {
             if (arr[left] <= pivot)
                 left++;
             else {
-                util.util.swap(arr,left,right); //注意，这里的left与right是指针，交换的是指向的值
+                ArrayUtil.swap(arr,left,right); //注意，这里的left与right是指针，交换的是指向的值
                 right--;
             }
         }
-        util.util.swap(arr,low,right); //right与left交错指向了一个小于pivot值，可以随意与主元pivot交换
+        ArrayUtil.swap(arr,low,right); //right与left交错指向了一个小于pivot值，可以随意与主元pivot交换
         return right;//right此时就成了中位数
     }
 

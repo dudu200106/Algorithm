@@ -1,6 +1,7 @@
 package 省题备考;
 
-import java.util.Arrays;
+import util.ArrayUtil;
+
 import java.util.Scanner;
 /**你有一张某海域NxN像素的照片，"."表示海洋、"#"表示陆地，如下所示：
 
@@ -71,7 +72,7 @@ public class 全球变暖_2018 {
         for (int i = 0; i < N; i++) {
             data[i]=in.nextLine().toCharArray();
         }
-        util.util oo= new util.util();
+        ArrayUtil oo= new ArrayUtil();
         char[][] kkk=oo.copy(data);
         char[][] copy=oo.copy(data);
         int res= count(data,copy,N);

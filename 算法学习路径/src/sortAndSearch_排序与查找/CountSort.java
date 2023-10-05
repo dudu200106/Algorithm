@@ -1,12 +1,14 @@
 package sortAndSearch_排序与查找;
 
+import util.ArrayUtil;
+
 import java.util.Arrays;
 
 public class CountSort {
     public static void countSort(int[] arr){
         //找到最大值最小值
-        int max= util.util.findMax(arr);
-        int min= util.util.findMin(arr);
+        int max= ArrayUtil.findMax(arr);
+        int min= ArrayUtil.findMin(arr);
 
         //数值转下标, helper的值是arr的值,建立helper[max+1-min+1]辅助数组, 记录出现的次数
         int[] helper= new int[max-min+1];
