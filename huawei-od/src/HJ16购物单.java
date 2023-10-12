@@ -46,7 +46,6 @@ public class HJ16购物单 {
                     w[i][4] = primary[i][1] + fujain[i][1][1] + fujain[i][2][1];
                     v[i][4] = primary[i][1]*primary[i][2] + fujain[i][1][1]*fujain[i][1][2] + fujain[i][2][1]*fujain[i][2][2];
                 }
-
             }
 
 

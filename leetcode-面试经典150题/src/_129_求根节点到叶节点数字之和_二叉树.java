@@ -2,7 +2,7 @@ import javax.swing.tree.TreeNode;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class 求根节点到叶节点数字之和_二叉树 {
+public class _129_求根节点到叶节点数字之和_二叉树 {
 
     public int sumNumbers(TreeNode root) {
         return dfs(0,root);

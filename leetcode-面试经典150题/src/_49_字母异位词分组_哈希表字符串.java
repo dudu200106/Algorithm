@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class 字母异位词分组_哈希表字符串 {
+public class _49_字母异位词分组_哈希表字符串 {
 
 
 /*
