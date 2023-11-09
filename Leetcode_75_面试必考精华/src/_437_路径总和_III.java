@@ -28,7 +28,7 @@ public class _437_路径总和_III {
     /**
      * 纯dfs, 枚举遍历所有节点为起点的路径和是否等于targetSum
      *
-     * 分两个函数,请学习其中的方法 -- 即"以任意结点为根(起点), 向下搜索"的情况
+     * 分两个函数,请学习其中的方法 -- 即"以任意结点为根(起点), 向下搜索" 的情况
      */
 
     public int pathSum(TreeNode root, int targetSum) {
