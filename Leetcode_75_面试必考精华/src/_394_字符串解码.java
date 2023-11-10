@@ -5,39 +5,54 @@ import java.util.List;
 public class _394_字符串解码 {
     public String decodeString(String s) {
         LinkedList<StringBuilder> nums = new LinkedList<>();
-        LinkedList<StringBuilder> beforeStr = new LinkedList<>();
-        StringBuilder cur_num = new StringBuilder();
-        StringBuilder res = new StringBuilder();
+        LinkedList<StringBuilder> strs = new LinkedList<>();
+        StringBuilder n = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for(char ch : s.toCharArray()) {
             if (Character.isDigit(ch)) {
-                cur_num.append(ch);
+                n.append(ch);
             } else if (Character.isLetter(ch)) {
-                res.append(ch);
+                sb.append(ch);
             } else if (ch == '[') {
-                nums.addLast(cur_num);
-                beforeStr.addLast(res);
-                cur_num = new StringBuilder();
-                res = new StringBuilder();
+                nums.addLast(n);
+                strs.addLast(sb);
+                n = new StringBuilder();
+                sb = new StringBuilder();
             } else if (ch == ']') {
-                StringBuilder temps = new StringBuilder();
-                String cnt = nums.removeLast().toString();
-                int i = "".equals(cnt) ? 0 : Integer.valueOf(cnt);
-                while (i > 0) {
-                    temps.append(res);
-                    i--;
+                String cnt_temp = nums.pollLast().toString();
+                int cnt = "".equals(cnt_temp) ? 1 : Integer.valueOf(cnt_temp.toString());
+
+                String str_temp = sb.toString();
+                for (int i = 1; i < cnt; i++) {
+                    sb.append(str_temp);
                 }
-                temps.insert(0, beforeStr.removeLast());
-                res = temps;
+                sb.insert(0, strs.pollLast());
             }
         }
-        return res.toString();
+        return sb.toString();
     }
 
+
+    /**
+     * 反序入栈, 贼难, 靠
+     * @param s
+     * @return
+     */
     public String decodeString2(String s) {
         LinkedList<StringBuilder> stack = new LinkedList<>();
-
+        LinkedList<Integer> nums = new LinkedList<>();
         StringBuilder  cur = new StringBuilder();
-        int num = 0;
+        StringBuilder num = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(Character.isDigit(ch)){
+                num.append(ch);
+            }else if (num.length()>0){
+                nums.addLast(Integer.valueOf(num.toString()));
+                num = new StringBuilder();
+            }
+        }
         for (int i = s.length()-1; i >=0; i--) {
             char ch = s.charAt(i);
             if (Character.isLetter(ch)){
@@ -46,17 +61,9 @@ public class _394_字符串解码 {
                 stack.add(cur);
                 cur = new StringBuilder();
             }else if (ch=='['){
-                if(Character.isDigit(s.charAt(i-1))){
-                    int j=i;
-                    while(j >0 && Character.isDigit(s.charAt(j-1))){
-                        j--;
-                    }
-                    num = Integer.valueOf(s.substring(j, i));
-                }else{
-                    num=1;
-                }
                 String temp = cur.toString();
-                for (int k = 1; k < num; k++) {
+                int m = nums.size() <=0 ? 1: nums.pollLast();
+                for (int k = 1; k < m; k++) {
                     cur.append(temp);
                 }
                 cur.append(stack.getLast());
@@ -65,6 +72,5 @@ public class _394_字符串解码 {
         }
         return cur.toString();
     }
-
 
 }
