@@ -11,15 +11,18 @@ import java.util.Arrays;
  */
 class InsertSort {
 
-    //插入排序,左栏是有序的前缀数组有序
-    public static void insert_Sort(int[] arr, int n) { //就像打牌时理顺序
-        for (int i = 1; i < n; i++) { //前缀数组的后一位下标
-            int temp = arr[i]; //保存, 方便比较和移动(这里在一边比较,一边移动)
-            int j; //避免循环变量不能拿出来用
-            for (j = i-1; j > 0 && arr[j]>temp; j--) {
-                arr[j] = arr[j-1];
+    //插入排序,下标i元素之前是有序的前缀数组
+    public static void insert_Sort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) { // 把原本下标为i的元素插到合适的位置
+            int temp = arr[i];
+            for (int j = i; j > 0; j--) {
+                 if(arr[j-1]>temp){
+                     arr[j] = arr[j-1]; // 移动, 然后空出一个位置
+                 }else {
+                     arr[j] = temp; // 找到合适位置, 插入
+                     break;
+                 }
             }
-            arr[j+1] = temp; // 插入到合适位置, 注意j要+1
         }
     }
 
@@ -40,7 +43,8 @@ class InsertSort {
             arg[i]=(int)(Math.random()*101);
         }
         System.out.println("排序前：" + Arrays.toString(arg));
-        insert_Sort02(arg);
+//        insert_Sort02(arg);
+        insert_Sort(arg);
         System.out.println("排序后：" + Arrays.toString(arg));
     }
 }

@@ -10,15 +10,13 @@ import java.util.Arrays;
  */
 public class SelectionSort {
     public static void selection_Sort(int[] arr){
-        for (int i=0; i< arr.length ; i++) { //相当于"第i+1小"的值
+        for (int i=0; i< arr.length-1 ; i++) { //相当于"第i+1小"的值
             int indexMin=i; //相比冒泡不用每次都交换，保存了当前范围内的最大值的下标后,和天花板值(最右值)交换
-            int j;
-            for (j=i+1; j<arr.length; j++) { //找出第n大的值（n=1,2,3。。。）
-                if (arr[j]<arr[indexMin]){
-                    indexMin=j; //更换最小值元素下标
+            for (int j=i+1; j<arr.length; j++) { //找出第n大的值（n=1,2,3。。。）
+                if (arr[indexMin] > arr[j]){
+                    indexMin = j; //找到此时最小值元素下标
                 }
             }
-            if (indexMin != i)
             ArrayUtil.swap(arr,indexMin,i); //交换，只交换了一次
         }
     }
