@@ -37,8 +37,9 @@ public class _28_找出字符串中第一个匹配项的下标 {
      */
     public int strStr1(String haystack, String needle) {
         int[] next = buildNext(needle);
-        int i = 0; // 指向text的指针
-        int j = 0; // 指向pattern的指针
+        // 双指针, i指向text的指针, j指向pattern的指针
+        int i = 0;
+        int j = 0;
 
         while (i < haystack.length()) {
             if (j == -1 || haystack.charAt(i) == needle.charAt(j)) {
@@ -52,14 +53,31 @@ public class _28_找出字符串中第一个匹配项的下标 {
                 j = next[j];
             }
         }
-        // 未找到匹配的子串
         return -1;
     }
+
+//    int solve(String text, String pattern){
+//        // 经由模式串构造next数组
+//        int[] next = buildNext(pattern);
+//        int i=0;
+//        int j=0;
+//        while(i <= text.length()-pattern.length()){
+//            if (j<0 || text.charAt(i) == pattern.charAt(j)){
+//                i++;
+//                j++;
+//                if (j==pattern.length()){
+//                    return i - j;
+//                }
+//            }
+//        }
+//        return -1;
+//    }
 
     // 构建next数组
     public int[] buildNext(String str){
         int[] next = new int[str.length()];
         next[0] = -1;
+        // 双指针, i指向当前后缀尾部, j指向前缀尾部
         int i = 1;
         int j = 0;
         while(i<str.length()){
