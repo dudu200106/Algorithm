@@ -10,8 +10,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
-      <module name="demo" target="17" />
       <module name="huawei-od" target="8" />
+      <module name="Leetcode" target="1.8" />
+      <module name="untitled" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
