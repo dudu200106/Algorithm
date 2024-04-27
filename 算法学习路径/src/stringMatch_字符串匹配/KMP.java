@@ -1,14 +1,37 @@
 package stringMatch_字符串匹配;
 
+/*
+       next[i]的含义: 当第i个模式串字符失配时, 模式串的指针j指向i-1结尾后缀相同前缀末尾的后一位 -- 即next[i]位,
+        重新与失配字符匹配; 若不匹配直到j=next[...next[i]]=-1, j++, next[i]=j/0/-1+1;
+       DP状态转移方程: next[i]=
+                       -1, (i=0, 即首字符无xt前缀)
+                       0, (其他情况--前缀无任何匹配)
+                       max{j}
+                           ---(满足以下要求:)
+                               1. 以j-1结尾的后缀的相同前缀(多个候选值)
+                           `   2. 是候选值中,相同前缀中长度最长的结尾下标+1
+
+       具体决策如下:
+           注: 为了方便, next[i+1]其实代表 以i结尾的后缀的相同前缀的下标后一位, 方便失配后j跳转与i+1位字符进行二次比较
+   */
+
 public class KMP {
     public static void main(String[] args) {
         String sc = "babababcbabababb";
         int index1 = indexOf(sc,"bababb");
         int count =indexOf2(sc,"bababb");
+        int ind =index_simple(sc,"bababb");
         System.out.println(index1);
-        System.out.println(count );
+        System.out.println(count);
+        System.out.println(ind);
     }
 
+    /**
+     * 暴力枚举  相当于原始版本, KMP是迭代第二版
+     * @param str
+     * @param p
+     * @return
+     */
     static int indexOf(String str, String p){
         int i = 0, j = 0;
         while (i<str.length() && j<p.length()){
@@ -27,13 +50,11 @@ public class KMP {
     }
 
     static int indexOf2(String str, String p){
-
         if (str.length()==0||p.length()==0)return -1;
         if (p.length()>str.length())return -1;
         int[] next= next(p); //next[j]代表了若是j失配, j将跳回到哪个位置
-        int cnt=0;
-        int i=0;
-        int j=0;
+        int cnt = 0;
+        int i = 0, j = 0;
         while(i<str.length()) {
             //两种情况:1.j下标已经是第一个字符了,且next[0]==-1又失配,j无回溯位置了,只能母串模式串重新匹配下一个字符--j++和i++
             //        2. 下标相互匹配, 继续匹配下一个字符
@@ -52,25 +73,15 @@ public class KMP {
         return cnt;
     }
 
-    /*
-        next[i]的含义: 当第i个模式串字符失配时, 模式串的指针j指向i-1结尾后缀相同前缀末尾的后一位 -- 即next[i]位,
-         重新与失配字符匹配; 若不匹配直到j=next[...next[i]]=-1, j++, next[i]=j/0/-1+1;
-        DP状态转移方程: next[i]=
-                        -1, (i=0, 即首字符无xt前缀)
-                        0, (其他情况--前缀无任何匹配)
-                        max{j}
-                            ---(满足以下要求:)
-                                1. 以j-1结尾的后缀的相同前缀(多个候选值)
-                            `   2. 是候选值中,相同前缀中长度最长的结尾下标+1
-
-        具体决策如下:
-            注: 为了方便, next[i+1]其实代表 以i结尾的后缀的相同前缀的下标后一位, 方便失配后j跳转与i+1位字符进行二次比较
-    */
+    /**
+     * 最简单的next数组模版  注意这里的next数组就是下一步跳转的意思了
+     * @param str
+     * @return
+     */
     static int[] next(String str){
         int[] next=new int[str.length()];
         // 初始dp状态
         next[0]=-1;
-
         int i = 0; // 当前待求next[i]的字符
         int j = next[i]; //j=-1,-- j是当前最长相同前缀的末尾指针+1
         //(若要论DP的含义,就是利用了历史最优解和他们的问题,通过决策实现当前最优解)
@@ -84,6 +95,47 @@ public class KMP {
         }
         return next;
     }
+
+
+    /**
+     * KMP模版  所以说本质上, KMP算法就是两次前后缀字符串的匹配
+     * @param str
+     * @param p
+     * @return
+     */
+    public static int index_simple(String str, String p){
+        int[] next = next_simple(p);
+        int m = 0;
+        for (int k = 0; k < str.length(); k++) {
+            while(m!=-1 && str.charAt(k)!=p.charAt(m+1))
+                m = next[m];
+            if (str.charAt(k)==p.charAt(m+1))
+                m++;
+            // 注意一下这步与next_simple中的区别
+            if (m == p.length()-1)
+                return k-m;
+
+        }
+        return -1;
+    }
+
+    public static int[] next_simple(String str){
+        int n = str.length();
+        int[] next = new int[n];
+        next[0] = -1;
+        int j = -1;
+        for (int i=1;i<n; i++){
+            while (str.charAt(j+1)!=str.charAt(i) && j!=-1)
+                j=next[j];
+            if (str.charAt(j+1)==str.charAt(i) )
+                j++;
+            // 注意以下这步与index_simple中的区别
+            next[i]=j;
+        }
+        return next;
+    }
+
+
 
     static int[] next2(String str){
         int[] next=new int[str.length()]; //防止str只有一位数

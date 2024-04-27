@@ -29,7 +29,7 @@ public class QuickSort {
      * @param high
      * @return
      */
-    public static int partition01_1(int[] arr, int low, int high) {
+    public static int partition(int[] arr, int low, int high) {
         int pivot = arr[low]; //保存枢轴, 随后首先找一个小于pivot的数覆盖他的位置
         while (low<high){
             while (low<high && arr[high]>pivot) high--;

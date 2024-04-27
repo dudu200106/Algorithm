@@ -13,15 +13,16 @@ public class _1004_最大连续1的个数_III {
      * @return
      */
     public int longestOnes(int[] nums, int k) {
-        int left=0;
+        int left=0, right=0;
         int sum = 0;
         int res = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            while (sum+k< i-left+1){
+        while (right < nums.length) {
+            sum += nums[right];
+            while (sum+k< right-left+1){
                 sum -= nums[left++];
             }
-            res = Math.max(res, i-left+1);
+            res = Math.max(res, right-left+1);
+            right++;
         }
         return res;
     }

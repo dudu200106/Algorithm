@@ -36,9 +36,11 @@ public class 子集_B站 {
         res.add(new HashSet<>());
         if (cur<0)return res;
 
+        // 不加
         res=getSubset02(arr,cur-1);
         Set<Set<Integer>> new_set=new HashSet<>();
         new_set.addAll(res);
+        // 加
         for (Set ele: res
              ) {
             Set<Integer> temp = (Set<Integer>)((HashSet)ele).clone();

@@ -18,7 +18,6 @@ import java.util.Arrays;
 public class ShellSort {
 
     public static void shell_sort(int[] arr, int n) {
-
         for (int d = n/2; d >=1; d/=2) { //划分子表
             // 下面for循环一次,每次使得一个子表有序,也可只一遍就让所有子表有序(具体如下)
             for (int i = 0; i <= n/d; i++) {

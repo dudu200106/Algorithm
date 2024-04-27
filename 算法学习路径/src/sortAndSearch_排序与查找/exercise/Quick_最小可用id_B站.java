@@ -43,7 +43,7 @@ public class Quick_最小可用id_B站 { //非负数
             if (arr[i]<minOfArr)
                 minOfArr=arr[i];
         }
-        int mid= QuickSort.partition01_1(arr,prior,row);
+        int mid= QuickSort.partition(arr,prior,row);
         if (arr[mid]==mid+minOfArr+1&&arr[mid-1]!=mid+minOfArr) return mid+minOfArr;
         if(arr[mid]==mid+minOfArr)// 左侧紧密,放弃左侧
             return minAvailableID04(arr,mid+1,row);
